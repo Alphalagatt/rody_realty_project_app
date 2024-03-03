@@ -1,6 +1,6 @@
 
 
-function Account_management_page() {
+function AccountManagementPage() {
     return(
         <div>
             Your code for the account management page goes here..
@@ -10,4 +10,4 @@ function Account_management_page() {
     );
 };
 
-export default Account_management_page;
+export default AccountManagementPage;

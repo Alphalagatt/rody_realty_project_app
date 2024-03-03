@@ -1,5 +1,5 @@
 
-function Forget_password() {
+function ForgetPassword() {
     return(
         <div>
             Your code for the forget password page goes here..
@@ -9,4 +9,4 @@ function Forget_password() {
     )
 }
 
-export default Forget_password;
+export default ForgetPassword;
