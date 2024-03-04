@@ -1,39 +1,81 @@
-
+import {React, useRef, useState} from "react";
 
 function Login() {
+/*
+  function onButtonClick(e){
+    console.log(JSON.stringify(formData));
+  }
+*/
+
+  //const [formData,setFormData] = useState({});
+  const [errors,setErrors] = useState({});
+
+  const email_validation = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+  let emailVal = useRef("");
+  let passVal = useRef("");
+
+  
+  function validateEmail(){
+    if(emailVal.current.value.match(email_validation)){
+      setErrors((prev)=>{
+        return {...prev,
+        emailError: ""
+        }
+      })
+    }else if(!emailVal.current.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)){
+      setErrors((prev)=>{
+        return {...prev,
+          emailError: "Invalid Email!"
+        };
+      });
+    }
+    console.log(JSON.stringify(errors));
+  }
+  
+  function validateEntries(){
+
+    if(passVal.current.value.length<8){
+      setErrors((prev)=>{
+        return {...prev,
+        passwordError: "Password too short!"
+        }
+      });
+    }else if(passVal.current.value.length>=8){
+      setErrors((prev)=>{
+        return {...prev,
+        passwordError:""
+        }
+      });
+    }
+
+    console.log(JSON.stringify(errors));
+  }
+
+
     return(
-        <div>
-            <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
+      <div>
         <div>Login</div>
+      
+      <br />
+      <div>
+        <input placeholder="Enter your email here" ref={emailVal} onChange={validateEmail}/>
+        <label>{errors.emailError}</label>
       </div>
       <br />
-      <div className={'inputContainer'}>
-        <input
-          value={email}
-          placeholder="Enter your email here"
-          onChange={(ev) => setEmail(ev.target.value)}
-          className={'inputBox'}
-        />
-        <label className="errorLabel">{emailError}</label>
+      <div>
+        <input placeholder="Enter your password here" ref={passVal} onChange={validateEntries} />
+        <label>{errors.passwordError}</label>
       </div>
       <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-        />
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
+      <div>
+        <input type="button" value={'Log in'} />
       </div>
     </div>
-        </div>
-    );
+        
+  
+  );
 };
+
 
 export default Login;
