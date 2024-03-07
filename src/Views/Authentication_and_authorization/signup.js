@@ -3,9 +3,9 @@
 function Signup() {
     return(
         <div>
-            Your code for the sign up page goes here..
-
-            Please delete this text and add your ui code here.
+            <label>EMAIL</label><input id="email_address" type="email"/><br/>
+            <label>NAME</label><input id="given_name" type="text"/><br/>
+            <input type="submit" value="Add user"/>
         </div>
     );
 };

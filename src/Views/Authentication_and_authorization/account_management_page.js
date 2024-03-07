@@ -1,11 +1,16 @@
 
 
 function AccountManagementPage() {
+
+    const accountDetails = {
+        businessName: "ABC Pty Ltd",
+        businessAddress: "abc street, sydney NSW 2000",
+        phoneNumber:"0212345678",
+    };
+
     return(
         <div>
-            Your code for the account management page goes here..
-
-            Please delete this text and add your ui code here.
+            {JSON.stringify(accountDetails)}
         </div>
     );
 };
