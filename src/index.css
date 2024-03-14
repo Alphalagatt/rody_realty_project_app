@@ -23,5 +23,107 @@ code {
 }
 
 .main-body{
-  padding: 50px;
+  padding: 0px;
+}
+
+.signin-background-image{
+  width: 100vw;
+  height: 100vh;
+}
+
+.signin-background{
+  position: absolute;
+  
+}
+
+.signin-form{
+  position: absolute;
+  width: 30vw;
+  height: 100vh;
+  z-index: 10;
+  margin-top: 0px;
+  margin-left: 0px;
+  background-color: white;
+  padding: 20px;
+}
+
+.signin-form-input{
+  position: relative;
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  font-size: large;
+  border-width: .5px;
+
+}
+
+.signin-form-submit{
+  position: relative;
+  cursor: pointer;
+  background-color: #004589;
+  width: 85%;
+  padding: 10px;
+  border-radius: 5px;
+  border-style: none;
+  font-size: large;
+  color: azure;
+  margin: 10px;
+}
+
+.signin-form-submit :hover{
+  background-color: aliceblue;
+  color: #004589;
+}
+
+.signin-form-social-login{
+  position: relative;
+  width: 80%;
+  height: 30px;
+  border-style: solid;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.signin-form-social-login img{
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.signin-form-social-login-text{
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.signin-form-login-page-link{
+  text-align: center;
+  margin-top: 30px;
+  font-weight: bold;
+}
+.signin-form-login-page-link-Link{
+  color: #004589;
+  text-emphasis: none;
+  text-decoration: none;
+}
+
+.signin-form-emphasis{
+  text-emphasis: none;
+  text-decoration: none;
+  color: #004589;
+
+}
+
+.signin-form-emphasis-container{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: right;
+  font-weight: bold;
+  width: 86%;
+}
+
+.signin-form-title{
+  color: #3C475C;
 }

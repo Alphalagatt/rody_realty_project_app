@@ -1,21 +1,23 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import {React, useRef, useState} from "react";
+import { Link, Navigate } from "react-router-dom";
+import auth from "../../MiddlewareApis/Firebase";
+import { useAuth } from "../../MiddlewareApis/AuthContext";
 
 function Login() {
-/*
-  function onButtonClick(e){
-    console.log(JSON.stringify(formData));
-  }
-*/
 
-  //const [formData,setFormData] = useState({});
+  
   const [errors,setErrors] = useState({});
+
+  const  {user, setUser,isLoggedIn,SetIsLoggedIn} = useAuth();
+  
 
   const email_validation = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
   let emailVal = useRef("");
   let passVal = useRef("");
 
-  
+
   function validateEmail(){
     if(emailVal.current.value.match(email_validation)){
       setErrors((prev)=>{
@@ -33,44 +35,57 @@ function Login() {
     console.log(JSON.stringify(errors));
   }
   
-  function validateEntries(){
-
-    if(passVal.current.value.length<8){
+  function loginClick(){
+    signInWithEmailAndPassword(auth,emailVal.current.value,passVal.current.value).then((currentUser)=>{
+      
+      console.log(currentUser);
+      setUser(currentUser);
+      SetIsLoggedIn(true);
+      window.localStorage.setItem("AuthUser",JSON.stringify(currentUser));
+      window.localStorage.setItem("isLoggedIn",true);
+    }).catch((err)=>{
       setErrors((prev)=>{
         return {...prev,
-        passwordError: "Password too short!"
-        }
+        loginError:"Wrong email or password please try again!!"
+      }
       });
-    }else if(passVal.current.value.length>=8){
-      setErrors((prev)=>{
-        return {...prev,
-        passwordError:""
-        }
-      });
-    }
+      passVal.current.value = "";
+      console.log(err);
 
-    console.log(JSON.stringify(errors));
-  }
+    });
+  };
 
+  if(isLoggedIn){
+    return <Navigate to="/user-dashboard/"/>
+  };
 
     return(
-      <div>
-        <div>Login</div>
+      <div className="signin-form">
+        <div className="signin-form-title"><h1>Login</h1></div>
       
       <br />
       <div>
-        <input placeholder="Enter your email here" ref={emailVal} onChange={validateEmail}/>
+        <input className="signin-form-input" placeholder="Enter your email here" ref={emailVal} onChange={validateEmail}/>
         <label>{errors.emailError}</label>
       </div>
       <br />
       <div>
-        <input placeholder="Enter your password here" ref={passVal} onChange={validateEntries} />
-        <label>{errors.passwordError}</label>
+        <input className="signin-form-input" placeholder="Enter your password here" type="password" ref={passVal} />
+        <label>{errors.loginError}</label>
       </div>
       <br />
       <div>
-        <input type="button" value={'Log in'} />
+        <input className="signin-form-submit" type="button" value={'Log in'} onClick={loginClick}/>
       </div>
+      <div>
+        <div className="signin-form-emphasis-container"><Link className="signin-form-emphasis" to="/authentication/forget_password"> Forgot Your Password? </Link></div>
+      </div>
+      <div>
+          <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/facebook.png')} alt="fb"/></span><span className="signin-form-social-login-text">Sign up With Facebook</span></div>
+          <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/google.png')} alt="google"/></span><span className="signin-form-social-login-text">Sign up With Google</span></div>
+          <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/twitter.png')} alt="X"/></span><span className="signin-form-social-login-text">Sign up With Twitter X </span></div>
+      </div>
+      <div className="signin-form-login-page-link"><span>New to the website? <Link className="signin-form-login-page-link-Link" to="/authentication/signup">Sign up</Link></span></div>
     </div>
         
   
