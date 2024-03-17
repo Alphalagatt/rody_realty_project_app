@@ -55,6 +55,12 @@ code {
   margin: 10px;
   font-size: large;
   border-width: .5px;
+  border-color: #004589;
+
+}
+
+.signin-form-input :focus{
+  border-color: #004589;
 
 }
 
@@ -126,4 +132,17 @@ code {
 
 .signin-form-title{
   color: #3C475C;
+}
+
+.sign-in-error{
+  color: #F78F8F;
+  font-size: small;
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.sign-in-error-icon{
+  width: 10px;
+  height: 10px;
 }

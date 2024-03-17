@@ -1,20 +1,22 @@
-import { useState } from "react";
 import { useAuth } from "../../MiddlewareApis/AuthContext";
 import { Navigate } from "react-router";
 
 
 function UserDashboard(){
-    const userContext = useAuth();
+    const {user, setUser,isLoggedIn,SetIsLoggedIn} = useAuth();
 
     function logout(){
         window.localStorage.clear();
+        setUser({});
+        SetIsLoggedIn(false);
+        return <Navigate to="/" replace={true} />
     }
 
     if(window.localStorage.getItem("isLoggedIn")==null){
         return <Navigate to="/" replace={true} />
     }
 
-   if(userContext.isLoggedIn || window.localStorage.getItem("isLoggedIn")){
+   if(isLoggedIn || window.localStorage.getItem("isLoggedIn")){
     if(!JSON.parse(window.localStorage.getItem("AuthUser")).user.emailVerified){
         return <Navigate to="/authentication/verify_email" replace={true} />
     }

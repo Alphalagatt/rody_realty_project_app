@@ -1,3 +1,5 @@
+
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {React, useRef, useState} from "react";
 import { Link, Navigate } from "react-router-dom";
@@ -7,8 +9,10 @@ import { useAuth } from "../../MiddlewareApis/AuthContext";
 function Login() {
 
   
-  const [errors,setErrors] = useState({});
-
+  const [errors,setErrors] = useState({
+    emailError:"",
+    loginError:""
+  });
   const  {user, setUser,isLoggedIn,SetIsLoggedIn} = useAuth();
   
 
@@ -66,12 +70,13 @@ function Login() {
       <br />
       <div>
         <input className="signin-form-input" placeholder="Enter your email here" ref={emailVal} onChange={validateEmail}/>
-        <label>{errors.emailError}</label>
+        {errors.emailError!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{errors.emailError}</label></div>:""}
+        {console.log(errors.emailError)}
       </div>
       <br />
       <div>
         <input className="signin-form-input" placeholder="Enter your password here" type="password" ref={passVal} />
-        <label>{errors.loginError}</label>
+        <div><label className="sign-in-error">{errors.loginError!==""?<span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>:"" } {errors.loginError}</label></div>
       </div>
       <br />
       <div>

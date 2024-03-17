@@ -7,7 +7,16 @@ function Signup() {
     let email_ref = useRef("");
     let password_ref = useRef("");
     let confirm_pass_ref = useRef("");
-    const[authentication,setAuthentication] = useState({});
+    const[authentication,setAuthentication] = useState({
+        email_error:"",
+        pass_len:"",
+        pass_cap:"",
+        pass_num:"",
+        pass_small:"",
+        pass_special:"",
+        confirm_pass_error:"",
+        authentication_error:""
+    });
     const email_validation = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
     const {user, setUser,isLoggedIn, SetIsLoggedIn} = useAuth();
@@ -159,20 +168,20 @@ function Signup() {
                 <div>
                     <input className="signin-form-input" placeholder="Email Address" type="text" ref={email_ref} onChange={checkEmail}/>
                     <div>
-                        <div>{authentication.email_error}</div>
+                    {authentication.email_error!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.email_error}</label></div>:""}
                     </div>
                     <input className="signin-form-input" placeholder="Password" type="password" ref={password_ref} onChange={checkPass}/>
                     <div>
-                        <div>{authentication.pass_len}</div>
-                        <div>{authentication.pass_cap}</div>
-                        <div>{authentication.pass_small}</div>
-                        <div>{authentication.pass_special}</div>
-                        <div>{authentication.pass_num}</div>
+                        {authentication.pass_len!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.pass_len}</label></div>:""}
+                        {authentication.pass_cap!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.pass_cap}</label></div>:""}
+                        {authentication.pass_small!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.pass_small}</label></div>:""}
+                        {authentication.pass_special!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.pass_special}</label></div>:""}
+                        {authentication.pass_num!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.pass_num}</label></div>:""}
                     </div>
                     <input className="signin-form-input" placeholder="Confirm Password" type="password" ref={confirm_pass_ref} onChange={checkConfirmPass}/>
                     <div>
-                        <div>{authentication.confirm_pass_error}</div>
-                        <div>{authentication.authentication_error}</div>
+                    {authentication.confirm_pass_error!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.confirm_pass_error}</label></div>:""}
+                    {authentication.authentication_error!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.authentication_error}</label></div>:""}
                     </div>
                     <input className="signin-form-submit" type="submit" value="Sign up" onClick={submitSignUp}/>
                     
