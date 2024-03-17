@@ -11,8 +11,10 @@ function Login() {
   
   const [errors,setErrors] = useState({
     emailError:"",
-    loginError:""
+    loginError:"",
+    viewPass:false
   });
+
   const  {user, setUser,isLoggedIn,SetIsLoggedIn} = useAuth();
   
 
@@ -20,6 +22,26 @@ function Login() {
 
   let emailVal = useRef("");
   let passVal = useRef("");
+
+function viewPassword(){
+  if(errors.viewPass===false){
+    passVal.current.type = "text";
+    setErrors((prev)=>{
+      return {...prev,
+        viewPass:true
+      };
+    });
+  }
+  if(errors.viewPass===true){
+    passVal.current.type = "password";
+    setErrors((prev)=>{
+      return {...prev,
+        viewPass:false
+      };
+    });
+  }
+  console.log(errors.viewPass);
+}
 
 
   function validateEmail(){
@@ -75,7 +97,7 @@ function Login() {
       </div>
       <br />
       <div>
-        <input className="signin-form-input" placeholder="Enter your password here" type="password" ref={passVal} />
+        <input className="signin-form-input" placeholder="Enter your password here" type="password" ref={passVal} />{errors.viewPass?<span><img onClick={viewPassword} className="sign-in-view-pass" src={require("../../RESOURCES/icons8-eye-100.png")} alt=""/></span>:<span><img onClick={viewPassword} className="sign-in-view-pass" src={require("../../RESOURCES/icons8-closed-eye-100.png")} alt=""/></span>}
         <div><label className="sign-in-error">{errors.loginError!==""?<span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>:"" } {errors.loginError}</label></div>
       </div>
       <br />
