@@ -129,8 +129,23 @@ function Signup() {
             window.localStorage.clear();
             window.localStorage.setItem("AuthUser",JSON.stringify(user));
             window.localStorage.setItem("isLoggedIn",isLoggedIn);
-            return <Navigate to="/user-dashboard/" replace={true} />
+            if(createdUser.emailVerified){
+                return <Navigate to="/user-dashboard/" replace={true} />
+            }else{
+                return <Navigate to="/authentication/verify_email" replace={true} />
+            }
+            
         }).catch((error)=>{
+            if(error.code === "auth/email-already-in-use"){
+                setAuthentication((prev)=>{
+                    return {...prev,
+                    authentication_error: "This Email already exists in our database!! Please choose another email to signup, or proceed to the login screen via the link below."
+                };
+                });
+                email_ref.current.value = "";
+                password_ref.current.value = "";
+                confirm_pass_ref.current.value = "";
+            }
             console.log(error.message);
         });
     }
@@ -157,6 +172,7 @@ function Signup() {
                     <input className="signin-form-input" placeholder="Confirm Password" type="password" ref={confirm_pass_ref} onChange={checkConfirmPass}/>
                     <div>
                         <div>{authentication.confirm_pass_error}</div>
+                        <div>{authentication.authentication_error}</div>
                     </div>
                     <input className="signin-form-submit" type="submit" value="Sign up" onClick={submitSignUp}/>
                     

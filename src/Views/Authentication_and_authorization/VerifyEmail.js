@@ -1,24 +1,25 @@
 import { Navigate } from "react-router";
 import { sendEmailVerification } from "firebase/auth";
 import auth from "../../MiddlewareApis/Firebase";
+import { useAuth } from "../../MiddlewareApis/AuthContext";
 import { useState } from "react";
 
 function VerifyEmail(){
 
-    const[logOut,setLogOut] = useState(false);
+    const {user, setUser,isLoggedIn,SetIsLoggedIn} = useAuth();
+
+    const[isloading,setIsLoading] = useState(false);
+
+    const[verifyClicked,setVerifyClicked] = useState();
 
     function logout(){
         window.localStorage.clear();
-        setLogOut(true);
-        if(logOut){
-            return <Navigate to="/" replace={true}/>
-        }
-        
-        
+        setUser({});
+        SetIsLoggedIn(false);
+        return <Navigate to="/" replace={true}/>
     }
 
     function verify(){
-
         sendEmailVerification(auth.currentUser).then((value)=>{
             console.log("value: "+value);
             return <Navigate to="/" replace={true}/>
@@ -26,6 +27,8 @@ function VerifyEmail(){
             console.log("error: "+err.message);
         });
     }
+
+    
 
     //const AuthenticateContext = useAuth();
     if(window.localStorage.getItem("isLoggedIn")){
