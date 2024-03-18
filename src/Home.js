@@ -1,5 +1,6 @@
 import { useAuth } from "./MiddlewareApis/AuthContext";
 import { Navigate } from "react-router-dom";
+import Nav from "./Components/Nav";
 
 function Home(){
     const AuthenticateContext = useAuth();
@@ -7,6 +8,7 @@ function Home(){
         return <Navigate to="/user-dashboard/"/>
     }
     return <div>
+        <Nav/>
         This is your home page.
     </div>
 }

@@ -1,6 +1,6 @@
 
 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { FacebookAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import {React, useRef, useState} from "react";
 import { Link, Navigate } from "react-router-dom";
 import auth from "../../MiddlewareApis/Firebase";
@@ -8,7 +8,7 @@ import { useAuth } from "../../MiddlewareApis/AuthContext";
 
 function Login() {
 
-  
+  //Declearing Variables and constants..
   const [errors,setErrors] = useState({
     emailError:"",
     loginError:"",
@@ -23,6 +23,9 @@ function Login() {
   let emailVal = useRef("");
   let passVal = useRef("");
 
+//Functions...
+
+//viewPassword - turns on and off the view password button on the side of the password input box.
 function viewPassword(){
   if(errors.viewPass===false){
     passVal.current.type = "text";
@@ -43,6 +46,7 @@ function viewPassword(){
   console.log(errors.viewPass);
 }
 
+//Validate email -  Uses different methods to verify the users input for strong passwords results.
 
   function validateEmail(){
     if(emailVal.current.value.match(email_validation)){
@@ -60,6 +64,8 @@ function viewPassword(){
     }
     console.log(JSON.stringify(errors));
   }
+
+  //Login action button..
   
   function loginClick(){
     signInWithEmailAndPassword(auth,emailVal.current.value,passVal.current.value).then((currentUser)=>{
@@ -80,6 +86,14 @@ function viewPassword(){
 
     });
   };
+
+  //login with facebook action function..
+
+  const FacebookProvider = new FacebookAuthProvider();
+
+  
+
+  //Helper methods for rendering outputs to the screen.
 
   if(isLoggedIn){
     return <Navigate to="/user-dashboard/"/>
