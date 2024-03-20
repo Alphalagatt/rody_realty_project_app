@@ -3,6 +3,7 @@ import auth from "../../MiddlewareApis/Firebase";
 import { useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../MiddlewareApis/AuthContext";
+import Loader from "../../Components/Loader";
 function Signup() {
     let email_ref = useRef("");
     let password_ref = useRef("");
@@ -15,11 +16,13 @@ function Signup() {
         pass_small:"",
         pass_special:"",
         confirm_pass_error:"",
-        authentication_error:""
+        authentication_error:"",
+        isLoading:false
     });
     const email_validation = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
     const {user, setUser,isLoggedIn, SetIsLoggedIn} = useAuth();
+
 
     function checkEmail(){
         if(!email_ref.current.value.match(email_validation)){
@@ -131,24 +134,30 @@ function Signup() {
     function submitSignUp(){
         
         if(authentication.email_error==="" && authentication.pass_len==="" && authentication.pass_cap==="" && authentication.pass_small==="" && authentication.pass_special==="" && authentication.pass_num===""){
+            setAuthentication((prev)=>{
+                return {...prev,
+                isLoading:true
+            };
+            });
         createUserWithEmailAndPassword(auth,email_ref.current.value,password_ref.current.value).then((createdUser)=>{
             console.log(createdUser);
             setUser(createdUser);
             SetIsLoggedIn(true);
             window.localStorage.clear();
-            window.localStorage.setItem("AuthUser",JSON.stringify(user));
+            window.localStorage.setItem("AuthUser",JSON.stringify(createdUser));
             window.localStorage.setItem("isLoggedIn",isLoggedIn);
-            if(createdUser.emailVerified){
-                return <Navigate to="/user-dashboard/" replace={true} />
-            }else{
-                return <Navigate to="/authentication/verify_email" replace={true} />
-            }
+            setAuthentication((prev)=>{
+                return {...prev,
+                isLoading:true
+            };
+            });
             
         }).catch((error)=>{
             if(error.code === "auth/email-already-in-use"){
                 setAuthentication((prev)=>{
                     return {...prev,
-                    authentication_error: "This Email already exists in our database!! Please choose another email to signup, or proceed to the login screen via the link below."
+                    authentication_error: "This Email already exists in our database!! Please choose another email to signup, or proceed to the login screen via the link below.",
+                    isLoading:false
                 };
                 });
                 email_ref.current.value = "";
@@ -157,12 +166,19 @@ function Signup() {
             }
             console.log(error.message);
         });
+        
     }
     }
-    
+
+    if(isLoggedIn){
+        return <Navigate to="/authentication/verify_email" replace={true} />
+    }
 
     return(
-        <div className="signin-form">
+        <div className="signin-form-cont">
+    
+            {authentication.isLoading===true?<Loader/>:""}
+            <div className="signin-form">
             <div>
                 <div className="signin-form-title"><h1>Sign up to Rody Realty</h1></div>
                 <div>
@@ -193,6 +209,7 @@ function Signup() {
                     <div className="signin-form-login-page-link"><span>Already have an account? <Link className="signin-form-login-page-link-Link" to="/authentication/login">Log in</Link></span></div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 
 function Loader(){
-    return <div>
-        <img src={require("../RESOURCES/houseLoading.gif")} alt="loading..."/>
+    return <div className="loader">
+        <img className="loader-img" src={require("../RESOURCES/houseLoading.gif")} alt="loading..."/>
     </div>
 };
 

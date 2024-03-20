@@ -151,3 +151,20 @@ code {
   width: 20px;
   height: 20px;
 }
+
+.loader{
+  position: absolute;
+  width: 30vw;
+  height: 100vh;
+  z-index: 20;
+  margin-top: 0px;
+  margin-left: 0px;
+  padding: 20px;
+  background-color: rgba(0, 69, 137,.3);
+}
+
+.loader-img{
+  position: relative;
+  margin-top: 40%;
+  margin-left: 40%;
+}
