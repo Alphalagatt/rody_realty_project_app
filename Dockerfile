@@ -8,7 +8,7 @@ COPY package.json /rody_realty_project_app/package.json
 
 COPY package-lock.json /rody_realty_project_app/package-lock.json
 
-RUN npm install
+RUN npm install 
 
 COPY . /rody_realty_project_app/
 
