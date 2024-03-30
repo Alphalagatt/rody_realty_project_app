@@ -12,14 +12,60 @@ code {
     monospace;
 }
 .Top-nav{
+  position: absolute;
+  z-index: 10;
+  margin-left: 20px;
   display: flex;
-  justify-content: space-around;
-  width: 100vw;
+  justify-content: space-between;
+  width: 95vw;
   height: 50px;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-bottom: 30px;
+}
+
+.nav-logo img{
+  width: 200px;
+  height: 50px;
+}
+
+.nav-links{
+  padding: 10px;
+  padding-top: 10px;
+  width: 60vw;
+  display: flex;
+  justify-content: space-around;
+  color: #004589;
+  
+}
+
+.nav-link{
+  text-decoration: none;
+  color:#004589;
+  font-weight: 700;
+}
+.nav-link :hover{
+  color:#F78F8F;
+}
+
+.nav-login{
+  border-style: none;
+  padding: 5px;
+  margin-bottom: -5px;
+  margin-top: -5px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 5px;
+  background-color: #004589;
+  color: aliceblue;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+.nav-login :hover{
+  background-color: aliceblue;
+  color: #004589;
 }
 
 .main-body{
@@ -167,4 +213,383 @@ code {
   position: relative;
   margin-top: 40%;
   margin-left: 40%;
+}
+
+
+
+
+.home-section-one{
+  position: relative;
+  height: 70vh;
+}
+
+.home-section-one img{
+  position: relative;
+  height: 70vh;
+  width: 100vw;
+}
+
+.home-section-one-search-box{
+  /*display: inline-block;*/
+  background-color: aliceblue;
+  position: absolute;
+  z-index: 12;
+  width: 60vw;
+  height: 25vh;
+  margin-left: 20vw;
+  margin-top: -40vh;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 50px;
+}
+
+
+.home-section-one-search-box-links{
+  display: flex;
+  justify-content: space-between;
+  width: 450px;
+  height: 50px;
+}
+
+.home-section-one-search-box-link{
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.home-section-one-search-box-link :hover{
+  background-color: #004589;
+  color: aliceblue;
+}
+
+
+.home-section-one-search-box-container{
+  border-style: solid;
+  border-color: darkgray;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  background-color: white;
+  border-width: .5px;
+}
+
+.home-section-one-search-box-container-textbox{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 500px;
+  background-color: white;
+}
+
+.home-section-one-search-box-container-textbox input{
+  width: 400px;
+  border-style: none;
+  outline: none;
+}
+
+.home-section-one-search-box-container-textbox-filter{
+  border-width: .5px;
+  cursor: pointer;
+  display: flex;
+  border-style: solid;
+  padding: 5px;
+  border-radius: 3px;
+  margin-top: -2px;
+  height: 20px;
+  width: 70px;
+}
+
+.home-section-one-search-box-container-textbox-filter img{
+  width: 20px;
+  height: 20px;
+}
+
+.home-section-one-search-box-container-button{
+  cursor: pointer;
+  background-color: #004589;
+  width: 200px;
+  padding: 10px;
+  display: flex;
+  font-size:x-large;
+  color: aliceblue;
+  padding-left: 20px;
+  border-style: none;
+  justify-content: center;
+
+}
+
+.home-section-one-search-box-container-button img{
+  width: 30px;
+  height: 30px;
+}
+.home-section-one-search-box-recent-title{
+  display: flex;
+  justify-content: center;
+  color: #bbbbbb;
+  padding: 10px;
+  width: 200px;
+}
+
+.home-section-one-search-box-recent-title img{
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+/*section 2 starts here..*/
+
+.home-section-two-forsale{
+  height: 100vh;
+  padding-top: 100px;
+  justify-content: center;
+}
+
+.home-section-two-forsale-titles{
+  text-align: center;
+}
+
+.home-section-two-forsale-titles #title1{
+  color: #004589;
+  font-size: small;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.home-section-two-forsale-titles #title2{
+  font-size: xx-large;
+  color: grey;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.home-section-two-forsale-links{
+  border-bottom-style: solid;
+  border-color: #bbbbbb;
+  border-width: 1px;
+  width: 96vw;
+  margin-left: 2vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.home-section-two-forsale-links #link{
+  margin-right: 10px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.home-section-two-forsale-links #link :hover{
+  border-bottom-style: solid;
+  border-bottom: #bbbbbb;
+  color: #004589;
+}
+
+.home-section-two-forsale-carousel{
+  margin-top: 50px;
+  display: flex;
+  padding: 20px;
+}
+
+.home-section-two-forsale-carouse-card{
+  border-radius: 5px;
+  width: 22vw;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.home-section-two-forsale-carouse-card img{
+  width: 22vw;
+  height: 200px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.home-section-two-forsale-carouse-card-info{
+  padding: 10px;
+}
+
+.home-section-two-forsale-carouse-card-info-sub{
+  font-size: larger;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+.home-section-two-forsale-carouse-card-info-add{
+  font-size: small;
+  color: #004589;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.home-section-two-forsale-carouse-card-info-prop-cont{
+  display: flex; 
+  justify-content: space-between;
+  width: 50%;
+  padding: 5px;
+}
+
+.home-section-two-forsale-carouse-card-info-prop{
+  display: flex;
+}
+
+.home-section-two-forsale-carouse-card-info-prop span{
+  margin-left: 5px;
+}
+
+.home-section-two-forsale-carouse-card-info-prop img{
+  width: 15px;
+  height: 15px;
+  margin-right: 2px;
+}
+
+.home-section-two-forsale-carouse-card-info-prop-des{
+  padding: 10px;
+  font-size: small;
+  color: #004589;
+  border-top-style: dotted;
+  border-width: 1px;
+  border-color: gray;
+}
+
+.home-section-two-forsale-footer{
+  margin-top: 50px;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.home-section-two-forsale-footer-btn{
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  cursor: pointer;
+}
+
+.home-section-two-forsale-footer-btn :hover{
+  color: aliceblue;
+  background-color: #004589;
+}
+
+.home-section-three-aboutus{
+  height: 80vh;
+  padding: 40px;
+  background-color: aliceblue;
+}
+
+.home-section-three-aboutus img{
+  height: 300px;
+  float: left;
+}
+
+.home-section-four-footer{
+  background-color: #004589;
+  color: aliceblue;
+  height: 50vh;
+  padding: 40px;
+  display: flex;
+}
+
+.home-section-four-footer-contactus{
+  width: 30%;
+  padding: 40px;
+}
+
+.home-section-four-footer-meet-the-team{
+  width: 70%;
+}
+
+.home-section-four-footer-contactus-socials-links{
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+
+.home-section-four-footer-contactus-socials-links img{
+  width: 30px;
+  height: 30px;
+  
+}
+
+.home-section-four-footer-meet-the-team{
+  padding: 40px;
+}
+
+.home-section-four-footer-meet-the-team-members{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.home-section-four-footer-meet-the-team-member img{
+  width: 100px;
+  height: 130px;
+}
+
+.home-section-four-footer-meet-the-team-member{
+  text-align: center;
+}
+
+
+.home-section-four-footer-meet-the-team-footer{
+  margin-top: 10px;
+  text-align: center;
+}
+.side-nav{
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: center;
+  width: 20vw;
+  height: 100vh;
+  background-color: #004589;
+}
+
+.side-nav img{
+  margin-bottom: 20px;
+}
+
+.side-nav-links{
+  cursor: pointer;
+  text-align: center;
+  color: aliceblue;
+  
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.side-nav-links :hover{
+  border-style: solid;
+  box-shadow: rgba(1, 1, 1, 0.45) 0px 25px 20px -20px;
+}
+
+.agent-dashboard{
+  display: flex;
+}
+
+.agent-dashboard-body{
+  width: 70vw;
+  padding: 40px;
+}
+
+.agent-dashboard-management-forms-top-nav{
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.agent-dashboard-management-forms-top-nav div{
+  border-style: solid;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: #004589;
+  color: #004589;
+  cursor: pointer;
 }

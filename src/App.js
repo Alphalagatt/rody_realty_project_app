@@ -9,6 +9,7 @@ import SigninBackground from "./Components/SigninBackground";
 import UserDashboard from "./Views/Users/UserDashboard";
 import Home from "./Home";
 import VerifyEmail from "./Views/Authentication_and_authorization/VerifyEmail";
+import AgentDashboard from "./Views/Agents_and_brokers/AgentDashboard";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
       </Route>
       <Route path="/user-dashboard">
         <Route path="/user-dashboard/" element={<UserDashboard/>}/>
+      </Route>
+      <Route path="/agent-dashboard">
+        <Route path="/agent-dashboard/" element={<AgentDashboard/>}/>
       </Route>
     </Routes>
     </div>
