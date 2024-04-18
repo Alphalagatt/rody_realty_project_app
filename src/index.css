@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  animation: animatemysite 2s ease-in-out 0;
 }
 
 code {
@@ -517,6 +518,12 @@ code {
   
 }
 
+.home-section-four-footer-contactus-socials-admin-login{
+  text-decoration: none;
+  text-emphasis: none;
+  color: aliceblue;
+}
+
 .home-section-four-footer-meet-the-team{
   padding: 40px;
 }
@@ -540,56 +547,675 @@ code {
   margin-top: 10px;
   text-align: center;
 }
-.side-nav{
-  padding-top: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
-  justify-content: center;
-  width: 20vw;
-  height: 100vh;
+
+/* Agents dashboard css..*/
+
+/*Top Nav...*/
+
+.agents-Top-nav{
+  position: fixed;
+  top:0;
+  width: 100vw;
+  display: flex;
   background-color: #004589;
-}
-
-.side-nav img{
-  margin-bottom: 20px;
-}
-
-.side-nav-links{
-  cursor: pointer;
-  text-align: center;
   color: aliceblue;
-  
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+
+
+}
+.agents-Top-nav img{
+  width: 150px;
+  padding-top: -10px;
+  padding-bottom: 5px;
 }
 
-.side-nav-links :hover{
-  border-style: solid;
-  box-shadow: rgba(1, 1, 1, 0.45) 0px 25px 20px -20px;
+.agents-Top-nav-links{
+  display: flex;
+  padding-right: 50px;
+  justify-content: space-evenly;
+  width: 60vw;
+  padding-top: 20px;
+}
+.agents-Top-nav-link{
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.agents-Top-nav-link.active{
+  color: #F78F8F;
+  font-weight: bolder;
 }
 
 .agent-dashboard{
-  display: flex;
+  margin-top: 0;
 }
-
 .agent-dashboard-body{
-  width: 70vw;
   padding: 40px;
 }
 
-.agent-dashboard-management-forms-top-nav{
+/*End of Top Nav*/
+
+/*beginning of page nav*/
+
+.agent-dashboard-page-nav{
+  display: flex;
+  justify-content: space-between;
+  width: 90vw;
+  margin-top: 20px;
+  padding: 10px;
+  z-index: 10;
+}
+
+.agent-dashboard-page-nav-links{
+  margin-top: 20px;
+  color:#004589;
+}
+
+.agent-dashboard-page-nav-links a{
+  text-decoration: none;
+  color: #004589;
+}
+
+.agent-dashboard-page-nav-body{
+  margin-top: 100px;
+  overflow: auto;
+}
+
+/*my Properties page*/
+
+.table{
+  width: 90vw;
+  border-collapse: collapse;
+  border-width: 1px;
+}
+
+.property-properties img{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.property-properties span{
+  color: #004589;
+}
+
+.property-properties{
   display: flex;
   justify-content: space-around;
+  width: 150px;
+}
+
+.property-properties div{
+
+  display: flex;
+  justify-content: space-around;
+  font-weight: normal;
+  padding-top: 2px;
+}
+
+.table-head{
+  text-align: left;
+  background-color: #004589;
+  color: aliceblue;
+  border-style: none;
+  border-width: 0;
   padding: 10px;
 }
 
-.agent-dashboard-management-forms-top-nav div{
+.table-row{
+  padding-top: 25px;
+  padding-bottom: 25px;
   border-style: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+  cursor: pointer;
+}
+tr{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+  cursor: pointer;
+}
+
+.table-body :hover{
+  background-color:lightsteelblue;
+  
+}
+
+.table-body{
+  border-style: none;
+  font-weight: lighter;
+  color: #004589;
+}
+
+
+
+/* New Properties Page */
+
+.form-container{
+  width: 60vw;
+  margin-left: 20vw;
+}
+
+.location-search-input{
+  width: 55vw;
+  font-size: large;
+  padding: 10px;
+  outline: #004589;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #004589;
+  margin: 20px;
+}
+
+.autocomplete-dropdown-container{
+  position: absolute;
+  margin-top: -25px;
+  padding: 10px;
+  width: 55vw;
+  margin-left: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.suggestion-item--active{
+  background-color: #004589;
+  color: aliceblue;
+  cursor: pointer;
+  font-size: large;
+  padding: 5px;
+
+}
+
+.suggestion-item{
+  background-color: white;
+  cursor: pointer;
+  font-size: large;
+  padding: 5px;
+}
+
+.form-text-area textarea{
+  width: 55vw;
+  font-size: large;
+  padding: 10px;
+  outline: #004589;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #004589;
+  margin: 20px;
+}
+
+.form-sub-section-heading{
+  text-align: center;
+}
+
+.form-characteristics-container{
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.form-characteristics{
+  text-align: center;
+}
+
+.form-characteristics input{
+  font-size: large;
+  padding: 10px;
+  outline: #004589;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #004589;
+  margin: 20px;
+}
+
+.form-picker-cont{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.form-picker input{
+  font-size: large;
+  padding: 10px;
+  margin: 10px;
+  width: 250px;
+}
+.form-picker-list{
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  background-color: white;
+}
+
+.form-picker-item{
+  background-color: white;
+  cursor: pointer;
+  font-size: large;
+  padding: 10px;
+  margin: 10px;
+  width: 250px;
+}
+
+.form-picker-item :hover{
+  background-color: #004589;
+  color: aliceblue;
+}
+
+.form-picker-picked{
+  background-color: lightskyblue;
+  font-size: large;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.form-picker-picked-owner{
+  background-color: lightseagreen;
+  font-size: large;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.form-picker-picked img{
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.form-picker-picked-owner img{
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.form-picker-picked-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-radio-group{
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+  padding: 10px;
+  font-size: large;
+}
+
+.form-radio-group-item1{
+  box-sizing: border-box;
+  display: inline-block;
+  border-color: #004589;
+  border-style: solid;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  padding: 2px;
+  background-clip: content-box;
+  border-radius: 50%;
+}
+
+.form-radio-group-item1-selected{
+  box-sizing: border-box;
+  border-color:#bbbbbb;
+  background-color: #004589;
+  border-style: solid;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  padding: 2px;
+  background-clip: content-box;
+  border-radius: 50%;
+}
+
+.form-radio-group-item2{
+  box-sizing: border-box;
+  display: inline-block;
+  border-color: #004589;
+  border-style: solid;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  padding: 2px;
+  background-clip: content-box;
+  border-radius: 50%;
+}
+
+.form-radio-group-item2-selected{
+  box-sizing: border-box;
+  display: inline-block;
+  border-color: #bbbbbb;
+  background-color: #004589;
+  border-style: solid;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  padding: 2px;
+  background-clip: content-box;
+  border-radius: 50%;
+}
+
+.form-radio-group-cont{
+  display: flex;
+  margin-right: 100px;
+
+}
+.form-radio-group input{
+  font-size: large;
+  padding: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #004589;
+  border-radius: 5px;
+  outline-color: #004589;
+
+}
+
+.form-photo-upload-cont{
+  border-style: solid;
+  display: flex;
+
+}
+
+.form-photo-upload-drop-window{
+  border-style: solid;
+  border-color: #004589;
+  width: 50%;
+}
+
+.dropzone{
+  border-style: dashed;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px;
+}
+
+/* Admin Signin and signup forms */
+
+.admin-signin-form{
+  text-align: center;
+  margin: 100px;
+  width: 40vw;
+  margin-left: 30vw;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.admin-logo{
+  width: 200px;
+}
+
+.admin-signup-form{
+  text-align: center;
+  margin: 100px;
+  width: 40vw;
+  margin-left: 30vw;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.admin-signup-form-loading{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  margin-top: 0px;
+  margin-left: 0px;
+  padding-left: 50vw;
+  padding-top: 40vh;
+  background-color: rgba(0, 69, 137,.3);
+}
+
+/*admin Dashboard*/
+
+.admin-nav{
+  position: fixed;
+  width: 100vw;
+  justify-content: space-between;
+  background-color: #004589;
+  display: flex;
+  z-index: 2;
+}
+.admin-side-nav{
+  position: fixed;
+  height: 100vh;
+  width: 100px;
+  float: left;
+  background-color: #004589;
+  z-index: 1;
+  padding-top: 70px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.admin-side-nav-enter{
+  position: fixed;
+  height: 100vh;
+  width: 300px;
+  float: left;
+  background-color: #004589;
+  z-index: 1;
+  padding-top: 70px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.admin-nav-link{
+  text-decoration: none;
+  text-emphasis: none;
+  color: aliceblue;
+}
+
+.admin-body{
+  padding-top: 70px;
+  padding-left: 120px;
+  padding-right: 50px;
+  position: relative;
+}
+
+.admin-inquiries{
+  position: fixed;
+  height: 50px;
+  width: 200px;
+  right: 5px;
+  bottom: 0px;
+  background-color: #004589;
+  z-index: 1;
+  border-style: solid;
+}
+.admin-inquiries-open{
+  position: fixed;
+  height: 400px;
+  width: 200px;
+  right: 5px;
+  bottom: 0px;
+  background-color: #004589;
+  z-index: 1;
+  border-style: solid;
+}
+
+/* Admin Side Nav Styling */
+
+.admin-side-nav-menu-item{
+  color: aliceblue;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.admin-side-nav-menu-item-title{
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.admin-side-nav-menu-item-title-text{
+  padding-top: 20px;
+  padding-left: 10px;
+}
+.admin-side-nav-menu-item-title img{
+  width: 50px;
+  height: 50px;
+}
+
+.admin-side-nav-menu-item-menu{
+  display: flex;
+  justify-content: center;
+}
+
+.admin-side-nav-menu-item-menu ul{
+  list-style-type:none;
+  font-size: large;
+  
+}
+
+.admin-side-nav-menu-item-menu ul :hover{
+  font-weight: bold;
+}
+.admin-side-nav-menu-item-menu-li{
+  padding: 10px;
+  text-decoration: none;
+  text-emphasis: none;
+  color: aliceblue;
+
+}
+
+.admin-nav-menu{
+  position: fixed;
+  background-color: #004589;
+  width: 200px;
+  height: 100px;
+  right: 10px;
+  top: 50px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.admin-nav-menu-item{
+  color: aliceblue;
+  margin-left: 20px;
   padding: 10px;
   border-radius: 5px;
-  border-color: #004589;
-  color: #004589;
   cursor: pointer;
+}
+
+.admin-nav-menu-item :hover{
+  color: #004589;
+  background-color: aliceblue;
+}
+.admin-nav-menu-item-link{
+  text-emphasis: none;
+  text-decoration: none;
+  color: aliceblue;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 2px;
+}
+.admin-update-form{
+  text-align: center;
+  margin: 100px;
+  width: 50vw;
+  margin-left: 20vw;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+/* admin summary page */
+.admin-tile{
+  width: 23%;
+  height: 150px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  cursor: pointer;
+}
+
+
+.danger{
+  background-color: #F78F8F;
+}
+.standard{
+  background-color:burlywood;
+}
+
+.primary{
+  background-color:cornflowerblue;
+}
+
+.success{
+  background-color: seagreen;
+}
+
+.admin-summary-container{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+
+.admin-tile-top{
+  display: flex;
+}
+
+.admin-tile-top-item{
+  width: 50%;
+}
+
+.admin-tile-top-item img{
+  margin-left: 20px;
+}
+
+.admin-tile-bottom{
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  width: 70%;
+  margin-top: 25px;
+}
+
+.admin-tile-bottom-item img{
+  width: 10px;
+  height: 10px;
+  margin-left: 10px;
+}
+
+.admin-tile-bottom-item{
+  color: aliceblue;
+}
+
+.admin-tile-top-item-number{
+  color: aliceblue;
+  text-align: center;
+}
+
+.admin-tile-top-item-text{
+  color: aliceblue;
+  text-align: center;
+}
+.admin-summary-chart1{
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  cursor: pointer;
+}
+
+.admin-summary-container-agent{
+  width: 400px;
+  text-align: center;
+}
+
+.admin-summary-container-agent img{
+  width: 200px;
+  border-radius: 50%;
+}
+
+.admin-summary-container-agent-text-head{
+  text-align: center;
+  color: aliceblue;
+}
+
+.admin-summary-container-agent-text-body{
+  display: flex;
+  justify-content: space-evenly;
 }

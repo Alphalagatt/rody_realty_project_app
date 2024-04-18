@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import Login from "./Views/Authentication_and_authorization/login";
 import Signup from "./Views/Authentication_and_authorization/signup";
 //import Nav from "./Components/Nav";
@@ -10,11 +10,37 @@ import UserDashboard from "./Views/Users/UserDashboard";
 import Home from "./Home";
 import VerifyEmail from "./Views/Authentication_and_authorization/VerifyEmail";
 import AgentDashboard from "./Views/Agents_and_brokers/AgentDashboard";
+import AgentsPropertiesPage from "./Views/Agents_and_brokers/AgentsPropertiesPage";
+import Reports from "./Views/Agents_and_brokers/Reports";
+import AgentsTenantsPage from "./Views/Agents_and_brokers/AgentsTenantsPage";
+import AgentsLeadsPage from "./Views/Agents_and_brokers/AgentsLeadsPage";
+import AgentsLandlordsPage from "./Views/Agents_and_brokers/AgentsLandlordsPage";
+import NewProperty from "./Views/Agents_and_brokers/NewProperty";
+import MyProperties from "./Views/Agents_and_brokers/MyProperties";
+import AgentsPropertyDetailsPage from "./Views/Agents_and_brokers/AgentsPropertyDetailsPage";
+import NewLandlord from "./Views/Agents_and_brokers/NewLandlord";
+import NewTenant from "./Views/Agents_and_brokers/NewTenant";
+import AllTenants from "./Views/Agents_and_brokers/AllTenants";
+import AgentsandAdminsLogin from "./Views/Administration/Agents_And_Admins_Auth/AgentsandAdminsLogin";
+import RegisterAdminsAndAgents from "./Views/Administration/Agents_And_Admins_Auth/RegisterAdminsAndAgents";
+import Nav from "./Components/Nav";
+import AdminDashboard from "./Views/Administration/AdminDashboard";
+import AdminSummary from "./Views/Administration/AdminSummary";
+import AdminManageProfile from "./Views/Administration/AdminManageProfile";
+import AdminAgentsPage from "./Views/Administration/Admin_Agents/AdminAgentsPage";
+import AgentsSummary from "./Views/Administration/Admin_Agents/AgentsSummary";
+import AgentProfile from "./Views/Administration/Admin_Agents/AgentProfile";
+import ForRent from "./Views/Administration/Admin_Agents/ForRent";
+import Rented from "./Views/Administration/Admin_Agents/Rented";
+import ForSale from "./Views/Administration/Admin_Agents/ForSale";
+import Sold from "./Views/Administration/Admin_Agents/Sold";
+import MyTenants from "./Views/Administration/Admin_Agents/MyTenants";
+import MyLandlords from "./Views/Administration/Admin_Agents/MyLandlords";
 
 function App() {
-  return (
-    <div className="main-body">
-    <Routes >
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+    <Route>
       <Route path="/" element={<Home/>}/>
       <Route path="/authentication">
         <Route path="/authentication/signup" element={<><Signup/><SigninBackground/></>} />
@@ -23,13 +49,56 @@ function App() {
         <Route path="/authentication/forget_password" element={<><ForgetPassword/><SigninBackground/></>}/>
         <Route path="/authentication/account_management_page" element={<AccountManagementPage/>}/>
       </Route>
+
+      <Route path="agents-admin-login">
+        <Route index element={<AgentsandAdminsLogin/>}/>
+        <Route path="signup" element={<RegisterAdminsAndAgents/>} />
+      </Route>
+
+      <Route path="admin-dashboard" element={<AdminDashboard/>}>
+        <Route index element={<AdminSummary/>}/>
+        <Route path="properties" element={<AdminDashboard/>}/>
+        <Route path="manage-profile" element={<AdminManageProfile/>}/>
+        <Route path="agents" element={<AdminAgentsPage/>}>
+          <Route index element={<AgentsSummary/>}/>
+          <Route path="agent-profile/:id" element={<AgentProfile/>}>
+            <Route path="my-properties" element={<MyProperties/>}/>
+            <Route path="for-rent" element={<ForRent/>} />
+            <Route path="rented" element={<Rented/>}/>
+            <Route path="for-sale" element={<ForSale/>}/>
+            <Route path="sold" element={<Sold/>}/>
+            <Route path="my-tenants" element={<MyTenants/>}/>
+            <Route path="my-landlords" element={<MyLandlords/>}/>
+          </Route>
+        </Route>
+      </Route>
+
       <Route path="/user-dashboard">
         <Route path="/user-dashboard/" element={<UserDashboard/>}/>
       </Route>
-      <Route path="/agent-dashboard">
-        <Route path="/agent-dashboard/" element={<AgentDashboard/>}/>
+      <Route path="agent-dashboard" element={<AgentDashboard />}>
+        <Route index element={<Reports/>}/>
+        <Route path="properties" element={<AgentsPropertiesPage/>}>
+          <Route path="new-properties" element={<NewProperty/>}/>
+          <Route path="my-properties" element={<MyProperties/>}>
+            <Route path=":id" element={<AgentsPropertyDetailsPage/>}/>
+          </Route>
+        </Route>
+        <Route path="landlords" element={<AgentsLandlordsPage/>}>
+          <Route path="find-landlord" element={<NewLandlord/>}/>
+        </Route>
+        <Route path="tenants" element={<AgentsTenantsPage/>}>
+          <Route path="find-tenant" element={<NewTenant/>}/>
+          <Route path="all-tenants" element={<AllTenants/>}/>
+        </Route>
+        <Route path="leads" element={<AgentsLeadsPage/>}/>
+
       </Route>
-    </Routes>
+    </Route>
+  ))
+  return (
+    <div className="main-body">
+      <RouterProvider router={router}/>
     </div>
   );
 }

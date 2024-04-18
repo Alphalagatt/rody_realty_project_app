@@ -1,0 +1,10 @@
+function NewTenant() {
+    return<div>
+        <input type="text" placeholder="First Name"/>
+        <input type="text" placeholder="Last Name" />
+        <input type="text" placeholder="Email Address"/>
+        <input type="submit" value="Add Tenant" />
+    </div>
+}
+
+export default NewTenant;

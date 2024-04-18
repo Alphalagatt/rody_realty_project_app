@@ -1,6 +1,7 @@
 import { useAuth } from "./MiddlewareApis/AuthContext";
 import { Navigate } from "react-router-dom";
 import Nav from "./Components/Nav";
+import { Link } from "react-router-dom";
 
 function Home(){
     const AuthenticateContext = useAuth();
@@ -143,6 +144,7 @@ function Home(){
                         <img src={require("./RESOURCES/linkedin_blue.png")} alt="." />
                         <img src={require("./RESOURCES/github_blue.png")} alt="." />
                     </div>
+                    <h5><Link className="home-section-four-footer-contactus-socials-admin-login" to="/agents-admin-login">Admin/Agent Login</Link></h5>
                 </div>
             </div>
             <div className="home-section-four-footer-meet-the-team">
@@ -157,7 +159,11 @@ function Home(){
                         <h5>James Misoi</h5>
                         <p>Group Leader</p>
                     </div>
-                    <div>Haardika</div>
+                    <div className="home-section-four-footer-meet-the-team-member">
+                        <img src={require("./RESOURCES/Hardika_Headshot.jpeg")} alt="." />
+                        <h5>Hardika Pareek</h5>
+                        <p>Documentation Specialist</p>
+                    </div>
                     <div className="home-section-four-footer-meet-the-team-member">
                         <img src={require("./RESOURCES/Gilbert_Headshot.jpeg")} alt="." />
                         <h5>Gilbert Koech</h5>
