@@ -13,7 +13,8 @@ const AdminDashboard = (props) => {
             expandLandlords:false,
             expandUsers:false
         },
-        topNavProfileExpand:false
+        topNavProfileExpand:false,
+        logout:false
     });
     const enq_click = ()=>{
         const enq_val = !pageMgt.enquiriesOpen;
@@ -128,11 +129,16 @@ const AdminDashboard = (props) => {
 
     const logout = ()=>{
         localStorage.clear();
+        setPageMgt(prev=>{
+            return {...prev,
+                logout:true,
+            }
+        })
         const topexp = !pageMgt.topNavProfileExpand
         
     }
 
-    if(!localStorage.getItem("AuthUser")){
+    if(pageMgt.logout){
         return <Navigate to="/"/>
     }
 
@@ -143,11 +149,11 @@ const AdminDashboard = (props) => {
         <div className="nav-logo"><Link to="/admin-dashboard"><img src={require('../../RESOURCES/logo_white.png')} alt="logo"/></Link></div>
         <div className="nav-links">
             <NavLink className="admin-nav-link" to="properties">Properties</NavLink>
-            <Link className="admin-nav-link" to="Agents">Agents</Link>
-            <Link className="admin-nav-link" to="Tenants">Tenants</Link>
-            <Link className="admin-nav-link" to="">Landlords</Link>
-            <Link className="admin-nav-link" to="">Users{process.env.REACT_APP_SECRET}</Link>
-            <Link className="admin-nav-link" to="#" onClick={expandManagement}>{JSON.parse(localStorage.getItem("AuthUser"))[0].email}</Link>
+            <NavLink className="admin-nav-link" to="agents">Agents</NavLink>
+            <NavLink className="admin-nav-link" to="tenants">Tenants</NavLink>
+            <NavLink className="admin-nav-link" to="">Landlords</NavLink>
+            <NavLink className="admin-nav-link" to="">Users</NavLink>
+            <NavLink className="admin-nav-link" to="#" onClick={expandManagement}>{JSON.parse(localStorage.getItem("AuthUser"))[0].email}</NavLink>
         </div>
         <div hidden={!pageMgt.topNavProfileExpand} className="admin-nav-menu">
             <div className="admin-nav-menu-item"><NavLink className="admin-nav-menu-item-link" to="manage-profile" onClick={contractManagement}>Manage Profile</NavLink></div>
@@ -165,7 +171,7 @@ const AdminDashboard = (props) => {
                 <div hidden={!pageMgt.sideNavExpand} className="admin-side-nav-menu-item-menu">
                     <ul hidden={!pageMgt.sideNav.expandProperties}>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Properties </NavLink></li>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> New Property </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink to="properties/new-property" className="admin-side-nav-menu-item-menu-li"> New Property </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Recent Properties </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Search Properties </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> For Rent </NavLink></li>
@@ -222,9 +228,9 @@ const AdminDashboard = (props) => {
                 </div>
                 <div hidden={!pageMgt.sideNavExpand} className="admin-side-nav-menu-item-menu">
                     <ul hidden={!pageMgt.sideNav.expandUsers}>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Users </NavLink></li>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> New User </NavLink></li>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Recent Registration </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" to="users"> Users </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" to="users/new-user"> New User </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" > Recent Registration </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Search User </NavLink></li>
                     </ul>
                 </div> 

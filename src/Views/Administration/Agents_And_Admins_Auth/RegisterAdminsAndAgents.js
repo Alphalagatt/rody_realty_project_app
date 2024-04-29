@@ -9,6 +9,7 @@ const RegisterAdminsAndAgents = (props) => {
   const [formControl,setFormControl] = useState({
     loading:false,
     isLoggedIn:false,
+    message:""
   })
 
   const emailref = useRef();
@@ -35,10 +36,18 @@ const RegisterAdminsAndAgents = (props) => {
     }).then((result)=>{
       setFormControl((prev)=>{
         return{...prev,
-          loading:false
+          loading:false,
+          message:" User Successfully Added!!"
         }
       })
       console.log(JSON.stringify(result));
+
+      emailref.current.value = "";
+      givenNameRef.current.value = "";
+      sirNameRef.current.value = "";
+      phoneNumberRef.current.value = "";
+      passwordRef.current.value = "";
+      accountTypeRef.current.value = "";
 
     }).catch((err)=>{
       setFormControl((prev)=>{
@@ -57,16 +66,15 @@ const RegisterAdminsAndAgents = (props) => {
   
 
   return (
-    <>
+    <div className="admin-body">
     {formControl.loading && <div>
       <div className="admin-signup-form-loading"><img src={require("../../../RESOURCES/houseLoading.gif")} alt="loading.."/> </div>
       
+
     </div>}
-    <div className="admin-signup-form">
-       <img className="admin-logo" src={require("../../../RESOURCES/logo.png")} alt="Login" />
-        <div><h4>Signup</h4></div>
-      
-      <br />
+    <div className="admin-update-form">
+        <h4>Register Administrators and Agents</h4>
+        <p>{formControl.message}</p>
       <div>
         <input className="signin-form-input" placeholder="Enter your email here" ref={emailref}/>
       </div>
@@ -93,7 +101,7 @@ const RegisterAdminsAndAgents = (props) => {
       
       <input className="signin-form-submit" type="submit" value="Sign up" onClick={handleSignup} />
     </div>
-    </>
+    </div>
   )
   
 };

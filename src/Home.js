@@ -2,14 +2,51 @@ import { useAuth } from "./MiddlewareApis/AuthContext";
 import { Navigate } from "react-router-dom";
 import Nav from "./Components/Nav";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import PlacesAutocomplete, { geocodeByAddress } from "react-places-autocomplete";
 
 function Home(){
+
+    const [state,setState] = useState();
     const AuthenticateContext = useAuth();
+
+    const handleChangeAddress = address => {
+        setState(address);
+    };
+
+    const handleSelectAddress = address => {
+        geocodeByAddress(address)
+          .then((results) => {
+            console.log(results[0].formatted_address);
+            setState(results[0].formatted_address);
+        })
+          .catch(error => console.error('Error', error));
+    };
+
+
     if(AuthenticateContext.isLoggedIn || window.localStorage.getItem("isLoggedIn")){
-        return <Navigate to="/user-dashboard/"/>
+        const account = ()=>{
+            if(!window.localStorage.getItem("AuthUser"))
+            return "";
+            else{
+                return JSON.parse(window.localStorage.getItem("AuthUser"))[0].accountType;
+            }
+        }
+        console.log(account);
+        switch (account) {
+            case "Administrator":
+                return <Navigate to="/admin-dashboard/"/>
+
+            case "Agent":
+                return <Navigate to="/agent-dashboard/"/>
+                
+            default:
+        }
+        
     }
     return <div>
         <Nav/>
+        
         <div className="home-section-one">
             <img src={require("./RESOURCES/homepage_cover2.jpg")} alt="homepage background" />
             <div className="home-section-one-search-box">
@@ -21,7 +58,41 @@ function Home(){
                 </div>
                 <div className="home-section-one-search-box-container">
                     <div className="home-section-one-search-box-container-textbox">
-                        <input type="text" placeholder="Try a postal code,suburb, or address to find properties"/>
+
+                    <PlacesAutocomplete value={state} onChange={handleChangeAddress} onSelect={handleSelectAddress} >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <input {...getInputProps({ placeholder: 'Try a postal code,suburb, or address to find properties', className: 'location-search-input',})} />
+            <div className="autocomplete-dropdown-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map(suggestion => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                // inline style for demonstration purpose
+                /*const style = suggestion.active
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  */
+                return (
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      /*style,*/
+                    })}
+                  >
+                    <span>{suggestion.description}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
+
+
+
+                        
                         <div className="home-section-one-search-box-container-textbox-filter">
                             <img src={require("./RESOURCES/filter.png")} alt="filter" />
                             Filter

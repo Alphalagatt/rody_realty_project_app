@@ -1,0 +1,70 @@
+import React from "react"
+import { useState } from "react";
+
+const AdminMyProperties = (props) => {
+  const [data,setData] = useState(null);
+    fetch("http://www.localhost:5000/property").then((result)=>{
+        return result.json();
+    }).then(dat=>{
+        setData({
+            data:dat,
+            err:"",
+        });
+    }).catch(err=>{
+        setData((prev)=>{
+            return {...prev,
+                error:err
+            }
+        })
+    })
+    if(data===null){
+        return <div>
+            loading..
+        </div>
+    }
+    if(data.err!==""&&data===null){
+        return <div>
+            There was an error rendering the data, Please try again..
+        </div>
+    }
+    return <div>
+        <table>
+            
+            <thead>
+                <th>Property Address</th>
+                <th>Property Characteristics</th>
+                <th>Managing Agents</th>
+                <th>Owners</th>
+                <th>Property Designation</th>
+            </thead>
+            <tbody >
+                {data.data.map((property)=>{
+                    return <tr key={property._id} >
+                        <td>{property.propertyAddress}</td>
+                        <td>
+                            <div className="property-properties">
+                                <div>
+                                    <img src={require("../../../RESOURCES/bed.png")} alt="bedrooms"/>
+                                    <div>{property.bedRooms}</div>
+                                </div>
+                                <div>
+                                    <img src={require("../../../RESOURCES/bath.png")} alt="bedrooms"/>
+                                    <div>{property.bathrooms}</div>
+                                </div>
+                                <div>
+                                    <img src={require("../../../RESOURCES/car.png")} alt="bedrooms"/>
+                                    <div>{property.carPort}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{property.managingAgents.length===0?"Agents Not assigned yet.":property.managingAgents[0]+"...+"+property.managingAgents.length-1}</td>
+                        <td>{property.Owners.length===0?"Owners Not assigned yet.":property.Owners[0]+"...+"+property.Owners.length-1}</td>
+                        <td>{property.propertyDesignation}</td>
+                    </tr>
+                })}
+            </tbody>
+        </table>
+    </div>
+};
+
+export default AdminMyProperties;

@@ -36,6 +36,10 @@ import ForSale from "./Views/Administration/Admin_Agents/ForSale";
 import Sold from "./Views/Administration/Admin_Agents/Sold";
 import MyTenants from "./Views/Administration/Admin_Agents/MyTenants";
 import MyLandlords from "./Views/Administration/Admin_Agents/MyLandlords";
+import AdminMyProperties from "./Views/Administration/Admin_Agents/AdminMyProperties";
+import AdminUsers from "./Views/Administration/Admin_Users/AdminUsers";
+import AdminUserDetails, { LoadUser } from "./Views/Administration/Admin_Users/AdminUserDetails";
+import AdminNewProperty, { LoadAgents } from "./Views/Administration/Admin_Property/AdminNewProperty";
 
 function App() {
   const router = createBrowserRouter(
@@ -52,17 +56,18 @@ function App() {
 
       <Route path="agents-admin-login">
         <Route index element={<AgentsandAdminsLogin/>}/>
-        <Route path="signup" element={<RegisterAdminsAndAgents/>} />
       </Route>
 
       <Route path="admin-dashboard" element={<AdminDashboard/>}>
         <Route index element={<AdminSummary/>}/>
-        <Route path="properties" element={<AdminDashboard/>}/>
+        <Route path="properties" element={<AdminDashboard/>}>
+          <Route path="new-property" loader={LoadAgents} element={<AdminNewProperty/>}/> 
+        </Route>
         <Route path="manage-profile" element={<AdminManageProfile/>}/>
         <Route path="agents" element={<AdminAgentsPage/>}>
           <Route index element={<AgentsSummary/>}/>
           <Route path="agent-profile/:id" element={<AgentProfile/>}>
-            <Route path="my-properties" element={<MyProperties/>}/>
+            <Route path="my-properties" element={<AdminMyProperties/>}/>
             <Route path="for-rent" element={<ForRent/>} />
             <Route path="rented" element={<Rented/>}/>
             <Route path="for-sale" element={<ForSale/>}/>
@@ -71,11 +76,18 @@ function App() {
             <Route path="my-landlords" element={<MyLandlords/>}/>
           </Route>
         </Route>
+        <Route path="users">
+          <Route path="new-user" element={<RegisterAdminsAndAgents/>} />
+          <Route index element={<AdminUsers/>}/>
+          <Route path=":id" element={<AdminUserDetails/>} loader={LoadUser}/>
+        </Route>
       </Route>
 
       <Route path="/user-dashboard">
         <Route path="/user-dashboard/" element={<UserDashboard/>}/>
       </Route>
+
+
       <Route path="agent-dashboard" element={<AgentDashboard />}>
         <Route index element={<Reports/>}/>
         <Route path="properties" element={<AgentsPropertiesPage/>}>
@@ -94,6 +106,8 @@ function App() {
         <Route path="leads" element={<AgentsLeadsPage/>}/>
 
       </Route>
+
+
     </Route>
   ))
   return (

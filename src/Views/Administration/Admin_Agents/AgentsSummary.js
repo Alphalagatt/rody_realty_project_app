@@ -1,11 +1,12 @@
 import React from "react"
+import { Outlet } from "react-router";
 
-const AgentsSummary = (props) => {
-  return (
-    <div>
-      
-    </div>
-  )
+
+const AgentsSummary = () => {
+  return<div>
+    Agents summary goes here..
+    <Outlet/>
+  </div>
 };
 
 export default AgentsSummary;

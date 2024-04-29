@@ -94,7 +94,7 @@ function viewPassword(){
     if(user[0].accountType==="Administrator"){
       return <Navigate to="/admin-dashboard" />
     }else if(user[0].accountType==="Agent"){
-      return <Navigate to="/admin-dashboard" />
+      return <Navigate to="/agent-dashboard" />
     }
   }
   

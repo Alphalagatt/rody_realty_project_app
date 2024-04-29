@@ -670,6 +670,13 @@ code {
   border-color: #bbbbbb;
   cursor: pointer;
 }
+
+.table-row-link{
+  text-decoration: none;
+  text-emphasis: none;
+  color: #004589;
+}
+
 tr{
   padding-top: 5px;
   padding-bottom: 5px;
@@ -699,7 +706,7 @@ tr{
   margin-left: 20vw;
 }
 
-.location-search-input{
+.location-search-input1{
   width: 55vw;
   font-size: large;
   padding: 10px;
@@ -710,6 +717,12 @@ tr{
   margin: 20px;
 }
 
+.location-search-input{
+  width: 55vw;
+  padding: 10px;
+  border-style: solid;
+  margin-bottom: 20px;
+}
 .autocomplete-dropdown-container{
   position: absolute;
   margin-top: -25px;
@@ -910,15 +923,12 @@ tr{
 }
 
 .form-photo-upload-cont{
-  border-style: solid;
-  display: flex;
 
 }
 
 .form-photo-upload-drop-window{
   border-style: solid;
   border-color: #004589;
-  width: 50%;
 }
 
 .dropzone{
@@ -1218,4 +1228,186 @@ tr{
 .admin-summary-container-agent-text-body{
   display: flex;
   justify-content: space-evenly;
+}
+
+/* Admin Agent Page */
+
+.admin-agent-profile-cont{
+  padding: 20px;
+}
+
+.Agents-page-header{
+  padding: 20px;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.admin-agent-profile-tab-menu{
+  position: fixed;
+  width: 85vw;
+  display: flex;
+  background-color: #bbbbbb;
+  padding: 10px;
+  padding-bottom: 0;
+  padding-left: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: .5px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+  
+}
+
+.admin-agent-profile-tab-menu a{
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-bottom: 0;
+  padding: 10px;
+  text-emphasis: none;
+  text-decoration: none;
+  font-weight: bold;
+  color: #3C475C;
+}
+
+.admin-agent-profile-tab-menu a.active{
+  background-color: #fff;
+}
+
+.admin-agent-profile-info{
+  margin-top: 60px;
+  padding: 10px;
+  display: flex;
+}
+
+.admin-agent-profile-info-photo-cont{
+  padding-right: 10px;
+}
+
+.admin-agent-profile-info-photo-cont img{
+  width: 20vw;
+  height: 100%;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #bbbbbb;
+}
+
+.admin-agent-profile-info-name{
+  width: 60vw;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: #bbbbbb;
+  padding-left: 10px;
+}
+
+.admin-agent-profile-info-more-info-cont{
+  display: flex;
+}
+.admin-agent-profile-info-more-info{
+  margin: 5px;
+  padding: 10px;
+  width: 18vw;
+}
+
+.border-left{
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-left-color: #bbbbbb;
+}
+
+.border-right{
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #bbbbbb;
+}
+
+.admin-agent-profile-management{
+  margin-top: 30px;
+}
+
+.admin-table{
+  width: 40vw;
+  border-collapse: collapse;
+  border-width: 1px;
+}
+
+/*New property form */
+.admin-new-form{
+  margin-right: 20%;
+  margin-left: 20%;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+}
+
+.admin-form-address-bar{
+  width: 90%;
+  padding: 10px;
+  margin: 20px;
+}
+
+.admin-form-address-dropdown{
+  background-color: white;
+  cursor: pointer;
+  font-size: large;
+  padding: 5px;
+}
+
+.admin-form-address-dropdown-active{
+  background-color: #004589;
+  color: aliceblue;
+  cursor: pointer;
+  font-size: large;
+  padding: 5px;
+}
+
+.admin-form-address-dropdown-container{
+  position: relative;
+  margin-top: -25px;
+  padding: 10px;
+  width: 90%;
+  margin-left: 20px;
+}
+
+.admin-form-text-area textarea{
+  width: 90%;
+  font-size: large;
+  padding: 10px;
+  outline: #004589;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #004589;
+  margin: 20px;
+}
+
+.form-characteristics select{
+  font-size: large;
+  padding: 10px;
+  outline: #004589;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #004589;
+  margin: 20px;
+}
+
+.admin-form-submit{
+  bottom: 0;
+  background-color: #004589;
+  color: aliceblue;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 20%;
+  font-size: larger;
+  padding: 20px;
+  border-radius: 10px;
+  border-style: none;
+  cursor: pointer;
+}
+.admin-form-submit :hover {
+  background-color: aliceblue;
+  color: #004589;
+  border-color: #004589;
+  border-width: .5px;
 }

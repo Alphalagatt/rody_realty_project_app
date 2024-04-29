@@ -12,17 +12,10 @@ function UserDashboard(){
         return <Navigate to="/" replace={true} />
     }
 
-    if(window.localStorage.getItem("isLoggedIn")==null){
-        return <Navigate to="/" replace={true} />
-    }
-
-   if(isLoggedIn || window.localStorage.getItem("isLoggedIn")){
-    if(!JSON.parse(window.localStorage.getItem("AuthUser")).user.emailVerified){
-        return <Navigate to="/authentication/verify_email" replace={true} />
-    }   
+    if(isLoggedIn){
     return <div>
     <button onClick={logout}>Log Out</button>
-    <p>{JSON.stringify(JSON.parse(window.localStorage.getItem("AuthUser")).user.emailVerified)}</p>
+    <p>logged in</p>
     </div>;
 
    }else{
