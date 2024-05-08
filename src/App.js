@@ -40,6 +40,8 @@ import AdminMyProperties from "./Views/Administration/Admin_Agents/AdminMyProper
 import AdminUsers from "./Views/Administration/Admin_Users/AdminUsers";
 import AdminUserDetails, { LoadUser } from "./Views/Administration/Admin_Users/AdminUserDetails";
 import AdminNewProperty, { LoadAgents } from "./Views/Administration/Admin_Property/AdminNewProperty";
+import AdminAllProperties, { adminPropertiesLoader } from "./Views/Administration/Admin_Property/AdminAllProperties";
+import AdminPropertyDetails, { propertyDetailsLoader } from "./Views/Administration/Admin_Property/PropertyDetails";
 
 function App() {
   const router = createBrowserRouter(
@@ -61,6 +63,8 @@ function App() {
       <Route path="admin-dashboard" element={<AdminDashboard/>}>
         <Route index element={<AdminSummary/>}/>
         <Route path="properties" element={<AdminDashboard/>}>
+          <Route index loader={adminPropertiesLoader} element={<AdminAllProperties/>}/>
+          <Route path=":id" loader={propertyDetailsLoader} element={<AdminPropertyDetails/>}/>
           <Route path="new-property" loader={LoadAgents} element={<AdminNewProperty/>}/> 
         </Route>
         <Route path="manage-profile" element={<AdminManageProfile/>}/>

@@ -14,7 +14,8 @@ const AdminDashboard = (props) => {
             expandUsers:false
         },
         topNavProfileExpand:false,
-        logout:false
+        logout:false,
+        loading:false
     });
     const enq_click = ()=>{
         const enq_val = !pageMgt.enquiriesOpen;
@@ -170,8 +171,8 @@ const AdminDashboard = (props) => {
                 </div>
                 <div hidden={!pageMgt.sideNavExpand} className="admin-side-nav-menu-item-menu">
                     <ul hidden={!pageMgt.sideNav.expandProperties}>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Properties </NavLink></li>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink to="properties/new-property" className="admin-side-nav-menu-item-menu-li"> New Property </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink to="/admin-dashboard/properties/" className="admin-side-nav-menu-item-menu-li"> Properties </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink to="/admin-dashboard/properties/new-property" className="admin-side-nav-menu-item-menu-li"> New Property </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Recent Properties </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Search Properties </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> For Rent </NavLink></li>
@@ -236,6 +237,8 @@ const AdminDashboard = (props) => {
                 </div> 
             </div>
         </div>
+
+        {pageMgt.loading && <div><div className="admin-signup-form-loading"><img src={require("../../RESOURCES/houseLoading.gif")} alt="loading.."/> </div></div>}
         <Outlet/>
         
     </div>
