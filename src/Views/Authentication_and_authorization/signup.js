@@ -1,13 +1,17 @@
-import {createUserWithEmailAndPassword} from "firebase/auth";
-import auth from "../../MiddlewareApis/Firebase";
 import { useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../MiddlewareApis/AuthContext";
 import Loader from "../../Components/Loader";
+import axios from "axios";
 function Signup() {
     let email_ref = useRef("");
     let password_ref = useRef("");
     let confirm_pass_ref = useRef("");
+    const givenNameRef = useRef();
+    const sirNameRef = useRef();
+    const phoneNumberRef = useRef();
+    const accountTypeRef = useRef();
+
     const[authentication,setAuthentication] = useState({
         email_error:"",
         pass_len:"",
@@ -19,6 +23,8 @@ function Signup() {
         authentication_error:"",
         isLoading:false
     });
+
+    
     const email_validation = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
     const {user, setUser,isLoggedIn, SetIsLoggedIn} = useAuth();
@@ -130,48 +136,55 @@ function Signup() {
             });
         }
     }
-
-    function submitSignUp(){
-        
-        if(authentication.email_error==="" && authentication.pass_len==="" && authentication.pass_cap==="" && authentication.pass_small==="" && authentication.pass_special==="" && authentication.pass_num===""){
+    
+        function handleSignup(){
+            if(authentication.email_error==="" && authentication.pass_len==="" && authentication.pass_cap==="" && authentication.pass_small==="" && authentication.pass_special==="" && authentication.pass_num===""){
             setAuthentication((prev)=>{
-                return {...prev,
-                isLoading:true
-            };
-            });
-        createUserWithEmailAndPassword(auth,email_ref.current.value,password_ref.current.value).then((createdUser)=>{
-            console.log(createdUser);
-            setUser(createdUser);
-            SetIsLoggedIn(true);
-            window.localStorage.clear();
-            window.localStorage.setItem("AuthUser",JSON.stringify(createdUser));
-            window.localStorage.setItem("isLoggedIn",isLoggedIn);
-            setAuthentication((prev)=>{
-                return {...prev,
-                isLoading:true
-            };
-            });
-            
-        }).catch((error)=>{
-            if(error.code === "auth/email-already-in-use"){
-                setAuthentication((prev)=>{
-                    return {...prev,
-                    authentication_error: "This Email already exists in our database!! Please choose another email to signup, or proceed to the login screen via the link below.",
-                    isLoading:false
-                };
-                });
-                email_ref.current.value = "";
-                password_ref.current.value = "";
-                confirm_pass_ref.current.value = "";
-            }
-            console.log(error.message);
-        });
+              return{...prev,
+                isLoading:true,
+              }
+            })
         
-    }
-    }
+            axios.post("http://www.localhost:5000/registration/user_details/new_user",{
+              email:email_ref.current.value,
+              givenName:givenNameRef.current.value,
+              sirName:sirNameRef.current.value,
+              phoneNumber:phoneNumberRef.current.value,
+              accountType: accountTypeRef.current.value,
+              password: password_ref.current.value,
+            }).then((result)=>{
+              setAuthentication((prev)=>{
+                return{...prev,
+                  isLoading:false,
+                  message:" User Successfully Added!!"
+                }
+              });
+              setUser(result);
+              SetIsLoggedIn(true);
+              window.localStorage.setItem("AuthUser",JSON.stringify(user));
+              window.localStorage.setItem("isLoggedIn",true);
+              console.log(JSON.stringify(result));
+        
+              email_ref.current.value = "";
+              givenNameRef.current.value = "";
+              sirNameRef.current.value = "";
+              phoneNumberRef.current.value = "";
+              password_ref.current.value = "";
+              accountTypeRef.current.value = "";
+        
+            }).catch((err)=>{
+              setAuthentication((prev)=>{
+                return{...prev,
+                  isLoading:false,
+                }
+              })
+              console.log("Error: "+err);
+            });
+        }
+        }
 
     if(isLoggedIn){
-        return <Navigate to="/authentication/verify_email" replace={true} />
+        return <Navigate to="/" replace={true} />
     }
 
     return(
@@ -180,11 +193,29 @@ function Signup() {
             {authentication.isLoading===true?<Loader/>:""}
             <div className="signin-form">
             <div>
-                <div className="signin-form-title"><h1>Sign up to Rody Realty</h1></div>
+            <div className="signup-form-logo">
+                <img className="admin-logo" src={require("../../RESOURCES/logo.png")} alt="Login" />
+                <div><h4>Sign up to Rody Realty</h4></div>
+            </div>
+                
                 <div>
                     <input className="signin-form-input" placeholder="Email Address" type="text" ref={email_ref} onChange={checkEmail}/>
                     <div>
                     {authentication.email_error!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.email_error}</label></div>:""}
+                    </div>
+                    <div className="">
+                    <input className="signin-form-input" placeholder="SirName" ref={sirNameRef}/>
+                    <input className="signin-form-input" placeholder="Given Names" ref={givenNameRef}/>
+                    </div>
+
+                    <div>
+                    <input className="signin-form-input" placeholder="Phone Number" ref={phoneNumberRef}/>
+                    </div>
+
+                    <div>
+                        <select className="signin-form-input" placeholder="Role" ref={accountTypeRef}>
+                            <option>User</option>
+                        </select>
                     </div>
                     <input className="signin-form-input" placeholder="Password" type="password" ref={password_ref} onChange={checkPass}/>
                     <div>
@@ -199,13 +230,8 @@ function Signup() {
                     {authentication.confirm_pass_error!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.confirm_pass_error}</label></div>:""}
                     {authentication.authentication_error!==""?<div><label className="sign-in-error"><span><img className="sign-in-error-icon" src={require("../../RESOURCES/errorIcon.png")} alt=""/></span>{authentication.authentication_error}</label></div>:""}
                     </div>
-                    <input className="signin-form-submit" type="submit" value="Sign up" onClick={submitSignUp}/>
+                    <input className="signin-form-submit" type="submit" value="Sign up" onClick={handleSignup}/>
                     
-                    <div>
-                        <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/facebook.png')} alt="fb"/></span><span className="signin-form-social-login-text">Sign up With Facebook</span></div>
-                        <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/google.png')} alt="google"/></span><span className="signin-form-social-login-text">Sign up With Google</span></div>
-                        <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/twitter.png')} alt="X"/></span><span className="signin-form-social-login-text">Sign up With Twitter X </span></div>
-                    </div>
                     <div className="signin-form-login-page-link"><span>Already have an account? <Link className="signin-form-login-page-link-Link" to="/authentication/login">Log in</Link></span></div>
                 </div>
             </div>

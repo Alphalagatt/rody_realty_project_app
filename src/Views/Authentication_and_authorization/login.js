@@ -1,10 +1,7 @@
-
-
-import { FacebookAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import {React, useRef, useState} from "react";
 import { Link, Navigate } from "react-router-dom";
-import auth from "../../MiddlewareApis/Firebase";
 import { useAuth } from "../../MiddlewareApis/AuthContext";
+import axios from "axios";
 
 function Login() {
 
@@ -67,41 +64,50 @@ function viewPassword(){
 
   //Login action button..
   
-  function loginClick(){
-    signInWithEmailAndPassword(auth,emailVal.current.value,passVal.current.value).then((currentUser)=>{
+  const loginClick  = async ()=>{
+    axios.post("http://www.localhost:5000/registration/login",{
+        email:emailVal.current.value,
+        password:passVal.current.value
+    }).then(async (respose)=>{
+        if(respose.data.length <=0){
+            setErrors((prev)=>{
+                return {...prev,
+                loginError: "Wrong Email or Password Please try Again"
+                }
+              })
+              passVal.current.value = "";
+        }else{
+            console.log(respose.data[0].accountType);
+            await setUser(respose.data);
+            await SetIsLoggedIn(true);
+            await window.localStorage.setItem("AuthUser",JSON.stringify(respose.data));
+            await window.localStorage.setItem("isLoggedIn",true);
+        }
+    }).then(()=>{
       
-      console.log(currentUser);
-      setUser(currentUser);
-      SetIsLoggedIn(true);
-      window.localStorage.setItem("AuthUser",JSON.stringify(currentUser));
-      window.localStorage.setItem("isLoggedIn",true);
-    }).catch((err)=>{
-      setErrors((prev)=>{
-        return {...prev,
-        loginError:"Wrong email or password please try again!!"
-      }
-      });
-      passVal.current.value = "";
-      console.log(err);
-
-    });
+    })
   };
 
-  //login with facebook action function..
-
-  const FacebookProvider = new FacebookAuthProvider();
-
-  
 
   //Helper methods for rendering outputs to the screen.
 
   if(isLoggedIn){
-    return <Navigate to="/user-dashboard/"/>
+    if(user[0].accountType==="Administrator"){
+      return <Navigate to="/admin-dashboard" />
+    }else if(user[0].accountType==="Agent"){
+      return <Navigate to="/agent-dashboard" />
+    }else{
+      return <Navigate to="/" replace/>
+    }
   };
+  
 
     return(
       <div className="signin-form">
-        <div className="signin-form-title"><h1>Login</h1></div>
+        <div className="signup-form-logo">
+        <img className="admin-logo" src={require("../../RESOURCES/logo.png")} alt="Login" />
+        <div><h4>Login</h4></div>
+        </div>
       
       <br />
       <div>
@@ -121,11 +127,7 @@ function viewPassword(){
       <div>
         <div className="signin-form-emphasis-container"><Link className="signin-form-emphasis" to="/authentication/forget_password"> Forgot Your Password? </Link></div>
       </div>
-      <div>
-          <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/facebook.png')} alt="fb"/></span><span className="signin-form-social-login-text">Sign up With Facebook</span></div>
-          <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/google.png')} alt="google"/></span><span className="signin-form-social-login-text">Sign up With Google</span></div>
-          <div className="signin-form-social-login"><span><img src={require('../../RESOURCES/twitter.png')} alt="X"/></span><span className="signin-form-social-login-text">Sign up With Twitter X </span></div>
-      </div>
+      
       <div className="signin-form-login-page-link"><span>New to the website? <Link className="signin-form-login-page-link-Link" to="/authentication/signup">Sign up</Link></span></div>
     </div>
         

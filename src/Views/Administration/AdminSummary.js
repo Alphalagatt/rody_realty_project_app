@@ -1,6 +1,5 @@
-import { type } from "@testing-library/user-event/dist/type";
 import React from "react"
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, BarChart, Legend, Bar, Rectangle, PieChart, Pie, ComposedChart } from "recharts";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, BarChart, Legend, Bar, PieChart, Pie, ComposedChart } from "recharts";
 
 const AdminSummary = () => {
 

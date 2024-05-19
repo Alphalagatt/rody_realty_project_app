@@ -1,34 +1,55 @@
 import { useAuth } from "./MiddlewareApis/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Nav from "./Components/Nav";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import PlacesAutocomplete, { geocodeByAddress } from "react-places-autocomplete";
 
 function Home(){
 
-    const [state,setState] = useState();
+    const [state,setState] = useState({
+        address:"sydney",
+        searchboxToggle:"buy",
+        addressForDisplay:"",
+        loggedinUser: "",
+    });
+
     const AuthenticateContext = useAuth();
 
     const handleChangeAddress = address => {
-        setState(address);
+        setState((prev)=>{
+            return {...prev,
+                address:address,
+                addressForDisplay:address
+            }
+        });
     };
 
     const handleSelectAddress = address => {
         geocodeByAddress(address)
           .then((results) => {
             console.log(results[0].formatted_address);
-            setState(results[0].formatted_address);
+            setState((prev)=>{
+                return {...prev,
+                    address:results[0].formatted_address,
+                    addressForDisplay:results[0].formatted_address
+                }
+            }
+        );
         })
           .catch(error => console.error('Error', error));
     };
 
+    
 
     if(AuthenticateContext.isLoggedIn || window.localStorage.getItem("isLoggedIn")){
         const account = ()=>{
-            if(!window.localStorage.getItem("AuthUser"))
-            return "";
+            if(!window.localStorage.getItem("AuthUser")){
+                return "";
+            }
+            
             else{
+                
                 return JSON.parse(window.localStorage.getItem("AuthUser"))[0].accountType;
             }
         }
@@ -42,6 +63,7 @@ function Home(){
                 
             default:
         }
+
         
     }
     return <div>
@@ -51,15 +73,13 @@ function Home(){
             <img src={require("./RESOURCES/homepage_cover2.jpg")} alt="homepage background" />
             <div className="home-section-one-search-box">
                 <div className="home-section-one-search-box-links">
-                    <div className="home-section-one-search-box-link">Buy</div>
-                    <div className="home-section-one-search-box-link">Rent</div>
-                    <div className="home-section-one-search-box-link">Sold</div>
-                    <div className="home-section-one-search-box-link">Lease</div>
+                    <div onClick={()=>{setState((prev)=>{return {...prev, searchboxToggle:"buy"  } })}} className={state.searchboxToggle==="buy"?"home-section-one-search-box-link-active":"home-section-one-search-box-link"}>Buy</div>
+                    <div onClick={()=>{setState((prev)=>{return {...prev, searchboxToggle:"rent"  } })}} className={state.searchboxToggle==="rent"?"home-section-one-search-box-link-active":"home-section-one-search-box-link"}>Rent</div>
                 </div>
                 <div className="home-section-one-search-box-container">
                     <div className="home-section-one-search-box-container-textbox">
 
-                    <PlacesAutocomplete value={state} onChange={handleChangeAddress} onSelect={handleSelectAddress} >
+                    <PlacesAutocomplete value={state.addressForDisplay} onChange={handleChangeAddress} onSelect={handleSelectAddress} >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <input {...getInputProps({ placeholder: 'Try a postal code,suburb, or address to find properties', className: 'location-search-input',})} />
@@ -98,10 +118,10 @@ function Home(){
                             Filter
                         </div>
                     </div>
-                    <div className="home-section-one-search-box-container-button">
+                    <Link className="remove-deco" to={state.searchboxToggle==="buy"?"home-properties/forsale/4/1/"+state.address:"home-properties/forrent/4/1/"+state.address}><div className="home-section-one-search-box-container-button">
                         <img src={require("./RESOURCES/search1.png")} alt="search" />
                         Search
-                    </div>
+                    </div></Link>
 
                 </div>
                 <div className="home-section-one-search-box-recent">
@@ -124,38 +144,12 @@ function Home(){
                 <div id="title2">Our Latest Properties</div>
             </div>
             <div className="home-section-two-forsale-links">
-                <div id="link">Selling</div>
-                <div id="link">Leasing</div>
-                <div id="link">Renting</div>
+                <div id="link"><NavLink to={"home-properties/forsale/4/1/"+state.address}>Selling</NavLink></div>
+                <div id="link"><NavLink to={"home-properties/forrent/4/1/"+state.address}>Renting</NavLink></div>
             </div>
-            <div className="home-section-two-forsale-carousel">
-                <div className="home-section-two-forsale-carouse-card">
-                    <img src={require("./RESOURCES/homepage_cover.jpg")} alt="." />
-                    <div className="home-section-two-forsale-carouse-card-info">
-                        <div className="home-section-two-forsale-carouse-card-info-sub">Liverpool</div>
-                        <div className="home-section-two-forsale-carouse-card-info-add">43 WOODSTOCK STREET</div>
-                        <div className="home-section-two-forsale-carouse-card-info-prop-cont">
-                            <div className="home-section-two-forsale-carouse-card-info-prop">
-                                <img src={require("./RESOURCES/bed.png")} alt="." />
-                                <span>2</span>
-                            </div>
-                            <div className="home-section-two-forsale-carouse-card-info-prop">
-                                <img src={require("./RESOURCES/bath.png")} alt="." />
-                                <span>1</span>
-                            </div>
-                            <div className="home-section-two-forsale-carouse-card-info-prop">
-                                <img src={require("./RESOURCES/car.png")} alt="." />
-                                <span>0</span>
-                            </div>
-                        </div>
-                        <div className="home-section-two-forsale-carouse-card-info-prop-des">For Sale</div>
-                    </div>
-                </div>
-            </div>
+            <Outlet/>
 
-            <div className="home-section-two-forsale-footer">
-                <div className="home-section-two-forsale-footer-btn">VIEW ALL FOR SALE</div>
-            </div>
+            
         </div>
 
 
@@ -259,3 +253,25 @@ function Home(){
 }
 
 export default Home;
+
+export const HomePropertiesForRentLoader = async ({params}) => {
+    const pagesize = params.pageSize;
+    const pageNumber = params.pageNumber;
+    const address = params.address;
+    const url = 'https://realty-in-au.p.rapidapi.com/properties/list?channel=rent&searchLocation='+address+'&searchLocationSubtext=Region&type=region&page='+pageNumber+'&pageSize='+pagesize+'&sortType=relevance&surroundingSuburbs=true&ex-under-contract=false';
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'cf5f2f69demshe345a94152f5526p1cb350jsnafe27c60cfd3',
+            'X-RapidAPI-Host': 'realty-in-au.p.rapidapi.com'
+        }
+    };
+    
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+};

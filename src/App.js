@@ -6,7 +6,6 @@ import AccountManagementPage from "./Views/Authentication_and_authorization/acco
 import ForgetPassword from "./Views/Authentication_and_authorization/forget_password";
 import "../src/index.css"
 import SigninBackground from "./Components/SigninBackground";
-import UserDashboard from "./Views/Users/UserDashboard";
 import Home from "./Home";
 import VerifyEmail from "./Views/Authentication_and_authorization/VerifyEmail";
 import AgentDashboard from "./Views/Agents_and_brokers/AgentDashboard";
@@ -23,7 +22,6 @@ import NewTenant from "./Views/Agents_and_brokers/NewTenant";
 import AllTenants from "./Views/Agents_and_brokers/AllTenants";
 import AgentsandAdminsLogin from "./Views/Administration/Agents_And_Admins_Auth/AgentsandAdminsLogin";
 import RegisterAdminsAndAgents from "./Views/Administration/Agents_And_Admins_Auth/RegisterAdminsAndAgents";
-import Nav from "./Components/Nav";
 import AdminDashboard from "./Views/Administration/AdminDashboard";
 import AdminSummary from "./Views/Administration/AdminSummary";
 import AdminManageProfile from "./Views/Administration/AdminManageProfile";
@@ -39,15 +37,26 @@ import MyLandlords from "./Views/Administration/Admin_Agents/MyLandlords";
 import AdminMyProperties from "./Views/Administration/Admin_Agents/AdminMyProperties";
 import AdminUsers from "./Views/Administration/Admin_Users/AdminUsers";
 import AdminUserDetails, { LoadUser } from "./Views/Administration/Admin_Users/AdminUserDetails";
-import AdminNewProperty, { LoadAgents } from "./Views/Administration/Admin_Property/AdminNewProperty";
 import AdminAllProperties, { adminPropertiesLoader } from "./Views/Administration/Admin_Property/AdminAllProperties";
 import AdminPropertyDetails, { propertyDetailsLoader } from "./Views/Administration/Admin_Property/PropertyDetails";
+import HomeForSale, { HomePropertiesForSaleLoader } from "./Views/HomePage/HomeForSale";
+import HomeForRent, { HomePropertiesForRentLoader } from "./Views/HomePage/HomeForRent";
+import HomePropertyDetails, { HomePropertyDetailsLoader } from "./Views/HomePage/HomePropertyDetails";
+import UserManageProfile, { UserProfileLoader } from "./Views/HomePage/UserManageProfile";
+import AdminAllTenants, { adminAllTenantsLoader, allTenantsLoader } from "./Views/Administration/Admin_Tenants/AdminAllTenants";
+import AdminNewLeaseAndTenancy, { AdminNewLeaseAndTenancyLoader } from "./Views/Administration/Admin_Tenants/AdminNewLeaseAndTenancy";
+import AdminUserEnquiries, { AdminEnquiriesLoader } from "./Views/Administration/Admin_Users/AdminUserEnquiries";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
     <Route>
-      <Route path="/" element={<Home/>}/>
+      <Route path="/" element={<Home/>}>
+        <Route path="home-properties/forsale/:pageSize/:pageNumber/:address" loader={HomePropertiesForSaleLoader} element={<HomeForSale/>}/>
+        <Route path="home-properties/forrent/:pageSize/:pageNumber/:address" loader={HomePropertiesForRentLoader} element={<HomeForRent/>}/>
+      </Route>
+      <Route path="/user-profile/:email" element={<UserManageProfile/>} loader={UserProfileLoader}/>
+      <Route path="/property-details/:id" loader={HomePropertyDetailsLoader} element={<HomePropertyDetails/>}/>
       <Route path="/authentication">
         <Route path="/authentication/signup" element={<><Signup/><SigninBackground/></>} />
         <Route path="/authentication/login" element={<><Login/><SigninBackground/></>} />
@@ -65,7 +74,6 @@ function App() {
         <Route path="properties" element={<AdminDashboard/>}>
           <Route index loader={adminPropertiesLoader} element={<AdminAllProperties/>}/>
           <Route path=":id" loader={propertyDetailsLoader} element={<AdminPropertyDetails/>}/>
-          <Route path="new-property" loader={LoadAgents} element={<AdminNewProperty/>}/> 
         </Route>
         <Route path="manage-profile" element={<AdminManageProfile/>}/>
         <Route path="agents" element={<AdminAgentsPage/>}>
@@ -84,13 +92,13 @@ function App() {
           <Route path="new-user" element={<RegisterAdminsAndAgents/>} />
           <Route index element={<AdminUsers/>}/>
           <Route path=":id" element={<AdminUserDetails/>} loader={LoadUser}/>
+          <Route path="enquiries" element={<AdminUserEnquiries/>} loader={AdminEnquiriesLoader}/>
+        </Route>
+        <Route path="tenants">
+          <Route path="all-tenants" element={<AdminAllTenants/>} loader={adminAllTenantsLoader}/>
+          <Route path="lease-and-tenancy/:propertyId" loader={AdminNewLeaseAndTenancyLoader} element={<AdminNewLeaseAndTenancy/>}/>
         </Route>
       </Route>
-
-      <Route path="/user-dashboard">
-        <Route path="/user-dashboard/" element={<UserDashboard/>}/>
-      </Route>
-
 
       <Route path="agent-dashboard" element={<AgentDashboard />}>
         <Route index element={<Reports/>}/>

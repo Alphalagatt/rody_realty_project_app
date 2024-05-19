@@ -92,6 +92,7 @@ const RegisterAdminsAndAgents = (props) => {
         <select className="signin-form-input" placeholder="Role" ref={accountTypeRef}>
           <option>Administrator</option>
           <option>Agent</option>
+          <option>User</option>
         </select>
       </div>
 

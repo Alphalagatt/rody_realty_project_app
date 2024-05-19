@@ -201,7 +201,7 @@ const AdminDashboard = (props) => {
                 </div>
                 <div hidden={!pageMgt.sideNavExpand} className="admin-side-nav-menu-item-menu">
                     <ul hidden={!pageMgt.sideNav.expandTenants}>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> All Tenants </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink to="/admin-dashboard/tenants/all-tenants" className="admin-side-nav-menu-item-menu-li"> All Tenants </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Add Tenant </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Payment History </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Search Tenant </NavLink></li>
@@ -229,9 +229,9 @@ const AdminDashboard = (props) => {
                 </div>
                 <div hidden={!pageMgt.sideNavExpand} className="admin-side-nav-menu-item-menu">
                     <ul hidden={!pageMgt.sideNav.expandUsers}>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" to="users"> Users </NavLink></li>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" to="users/new-user"> New User </NavLink></li>
-                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" > Recent Registration </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" to="/admin-dashboard/users"> Users </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" to="/admin-dashboard/users/new-user"> New User </NavLink></li>
+                        <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li" to="/admin-dashboard/users/enquiries"> User Enquiries </NavLink></li>
                         <li className="admin-side-nav-menu-item-menu-li"><NavLink className="admin-side-nav-menu-item-menu-li"> Search User </NavLink></li>
                     </ul>
                 </div> 

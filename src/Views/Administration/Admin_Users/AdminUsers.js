@@ -29,21 +29,22 @@ const AdminUsers = (props) => {
     }
     return <div className="admin-body">
         <table className="table" style={{marginLeft:20}}>
-            
-            <thead className="table-head">
+            <tr className="table-head">
                 <th>User Email Address</th>
                 <th>User FullName</th>
                 <th>Phone Number</th>
                 <th>Account Type</th>
-            </thead>
+            </tr>
             <tbody className="table-body">
                 {data.data.map((user)=>{
-                    return  <tr key={user._id} className="table-row"> <Link className="table-row-link" to={user._id}>
-                        <td>{user.email}</td>
-                        <td>{user.givenName+" "+user.sirName}</td>
-                        <td>{user.phoneNumber}</td>
-                        <td>{user.accountType}</td></Link>
-                    </tr>
+                    return (
+                        
+                    <tr key={user._id} className="table-row"> 
+                        <td><Link className="table-row-link" to={user._id}>{user.email}</Link></td>
+                        <td><Link className="table-row-link" to={user._id}>{user.givenName+" "+user.sirName}</Link></td>
+                        <td><Link className="table-row-link" to={user._id}>{user.phoneNumber}</Link></td>
+                        <td><Link className="table-row-link" to={user._id}>{user.accountType}</Link></td>
+                    </tr>)
                 })}
             </tbody>
         </table>
