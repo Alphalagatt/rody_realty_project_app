@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { useLoaderData, useParams, Await, defer } from "react-router";
+import { useLoaderData, useParams, Await, defer, Outlet } from "react-router";
 import Nav from "../../Components/Nav";
 import axios from "axios";
 
@@ -82,10 +82,11 @@ const HomePropertyDetails = (props) => {
   
   return (
     <React.Suspense fallback={<div> <img src={ require("../../RESOURCES/houseLoading.gif")} alt="loading" /> </div>}>
+      
       <Await resolve={propertyDetails} errorElement={<div>Error Loading the data from the server</div>}>
         
         <div>
-          <Nav/>
+        <Outlet/>
           <div className="properties-admin-view">
               <div><img className="properties-admin-view-image" src={propertyDetails.results[0].images[0].server+`/${width}x${height}`+propertyDetails.results[0].images[0].uri} alt="main" />
               </div>

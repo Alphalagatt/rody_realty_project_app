@@ -81,7 +81,6 @@ const UserManageProfile = (props) => {
 
   return (
     <div>
-        <Nav/>
       <div className="user-profile-view">
         <div>
             <img src={require("../../RESOURCES/icons8-male-user-100.png")} alt="." />
@@ -97,7 +96,7 @@ const UserManageProfile = (props) => {
         </div>
       </div>
       <div>
-        <div>
+        {lease&& <div>
             <div>
               <h3>Rented Properties</h3>
               <div className="properties-user-profile-view">
@@ -161,7 +160,7 @@ const UserManageProfile = (props) => {
               <h3>Properties Owned</h3>
             </div>
 
-        </div>
+        </div>}
         <Outlet/>
       </div>
 
@@ -191,6 +190,7 @@ export const UserProfileLoader = async ({params})=>{
     const response  = await fetch(url);
     const findTenantRes = await fetch("http://www.localhost:5000/tenants/by-userid/"+JSON.parse(window.localStorage.getItem("AuthUser"))[0]._id);
     const findTenant = await findTenantRes.json(); 
+    if(findTenant!==null){
     const leaseAgreement = await fetch("http://www.localhost:5000/lease/by-tenantid/"+findTenant._id);
     const lease = await leaseAgreement.json();
     const properties_url = 'https://realty-in-au.p.rapidapi.com/properties/detail?id='+lease.propertyLeased;
@@ -207,4 +207,8 @@ export const UserProfileLoader = async ({params})=>{
     const property = await fetch(properties_url,options);
     const propertyR = await property.json();
     return {data:data,leaseAgreement:lease,property:propertyR};
+  }else{
+    const data = await response.json();
+    return {data:data}
+  }
 }

@@ -137,7 +137,7 @@ function Signup() {
         }
     }
     
-        function handleSignup(){
+        const handleSignup = async()=>{
             if(authentication.email_error==="" && authentication.pass_len==="" && authentication.pass_cap==="" && authentication.pass_small==="" && authentication.pass_special==="" && authentication.pass_num===""){
             setAuthentication((prev)=>{
               return{...prev,
@@ -145,7 +145,7 @@ function Signup() {
               }
             })
         
-            axios.post("http://www.localhost:5000/registration/user_details/new_user",{
+           await axios.post("http://www.localhost:5000/registration/user_details/new_user",{
               email:email_ref.current.value,
               givenName:givenNameRef.current.value,
               sirName:sirNameRef.current.value,
@@ -153,26 +153,41 @@ function Signup() {
               accountType: accountTypeRef.current.value,
               password: password_ref.current.value,
             }).then((result)=>{
+              //setUser(result);
+              //window.localStorage.setItem("AuthUser",JSON.stringify(user));
               setAuthentication((prev)=>{
                 return{...prev,
                   isLoading:false,
                   message:" User Successfully Added!!"
                 }
               });
-              setUser(result);
-              SetIsLoggedIn(true);
-              window.localStorage.setItem("AuthUser",JSON.stringify(user));
-              window.localStorage.setItem("isLoggedIn",true);
-              console.log(JSON.stringify(result));
+              //SetIsLoggedIn(true);
+              //window.localStorage.setItem("isLoggedIn",true);
+              //console.log(JSON.stringify(result));
         
-              email_ref.current.value = "";
-              givenNameRef.current.value = "";
-              sirNameRef.current.value = "";
-              phoneNumberRef.current.value = "";
-              password_ref.current.value = "";
-              accountTypeRef.current.value = "";
+              //email_ref.current.value = "";
+              //givenNameRef.current.value = "";
+              //sirNameRef.current.value = "";
+              //phoneNumberRef.current.value = "";
+              //password_ref.current.value = "";
+              //accountTypeRef.current.value = "";
         
-            }).catch((err)=>{
+            }).then(()=>{
+                axios.post("http://www.localhost:5000/registration/login",{
+                email:email_ref.current.value,
+                password:password_ref.current.value
+                }).then(async (respose)=>{
+                if(respose.data.length <=0){
+                
+                }else{
+                console.log(respose.data[0].accountType);
+                await setUser(respose.data);
+                await SetIsLoggedIn(true);
+                await window.localStorage.setItem("AuthUser",JSON.stringify(respose.data));
+                await window.localStorage.setItem("isLoggedIn",true);
+            }
+         });
+    }).catch((err)=>{
               setAuthentication((prev)=>{
                 return{...prev,
                   isLoading:false,

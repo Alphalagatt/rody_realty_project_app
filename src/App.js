@@ -46,17 +46,23 @@ import UserManageProfile, { UserProfileLoader } from "./Views/HomePage/UserManag
 import AdminAllTenants, { adminAllTenantsLoader, allTenantsLoader } from "./Views/Administration/Admin_Tenants/AdminAllTenants";
 import AdminNewLeaseAndTenancy, { AdminNewLeaseAndTenancyLoader } from "./Views/Administration/Admin_Tenants/AdminNewLeaseAndTenancy";
 import AdminUserEnquiries, { AdminEnquiriesLoader } from "./Views/Administration/Admin_Users/AdminUserEnquiries";
+import Nav, { navLoader } from "./Components/Nav";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
     <Route>
       <Route path="/" element={<Home/>}>
+        <Route index element={<Nav/>} loader={navLoader}/>
         <Route path="home-properties/forsale/:pageSize/:pageNumber/:address" loader={HomePropertiesForSaleLoader} element={<HomeForSale/>}/>
         <Route path="home-properties/forrent/:pageSize/:pageNumber/:address" loader={HomePropertiesForRentLoader} element={<HomeForRent/>}/>
       </Route>
-      <Route path="/user-profile/:email" element={<UserManageProfile/>} loader={UserProfileLoader}/>
-      <Route path="/property-details/:id" loader={HomePropertyDetailsLoader} element={<HomePropertyDetails/>}/>
+      <Route path="/user-profile/:email" element={<UserManageProfile/>} loader={UserProfileLoader}>
+        <Route index element={<Nav/>} loader={navLoader}/>
+      </Route>
+      <Route path="/property-details/:id" loader={HomePropertyDetailsLoader} element={<HomePropertyDetails/>}>
+        <Route index element={<Nav/>} loader={navLoader}/>
+      </Route>
       <Route path="/authentication">
         <Route path="/authentication/signup" element={<><Signup/><SigninBackground/></>} />
         <Route path="/authentication/login" element={<><Login/><SigninBackground/></>} />

@@ -67,7 +67,7 @@ function Home(){
         
     }
     return <div>
-        <Nav/>
+        
         
         <div className="home-section-one">
             <img src={require("./RESOURCES/homepage_cover2.jpg")} alt="homepage background" />

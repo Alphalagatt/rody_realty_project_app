@@ -1,13 +1,18 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLoaderData } from "react-router-dom";
 import { useAuth } from "../MiddlewareApis/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Nav(props) {
 
     const AuthenticateContext = useAuth();
-    console.log("Localstorage nav: "+window.localStorage.getItem("isLoggedIn"));
-    console.log(AuthenticateContext);
+    //console.log("Localstorage nav: "+window.localStorage.getItem("isLoggedIn"));
+    //console.log(AuthenticateContext);
 
+
+    const data = useLoaderData();
+    console.log(data);
+    //console.log(JSON.parse(data)[0]);
+    /*
     if(AuthenticateContext.isLoggedIn || window.localStorage.getItem("isLoggedIn")){
         const account = ()=>{
             if(!window.localStorage.getItem("AuthUser")){
@@ -34,6 +39,8 @@ function Nav(props) {
         
     }
 
+    */
+
     const [pageMgt,setPageMgt] = useState({
         enquiriesOpen:false,
         sideNavExpand:false,
@@ -47,9 +54,11 @@ function Nav(props) {
         topNavProfileExpand:false,
         logout:false,
         loading:false,
+        loggedIn:false,
 
 
     });
+
 
     const logout = async ()=>{
         localStorage.clear();
@@ -77,7 +86,7 @@ function Nav(props) {
             }
         })
     }
-    
+    //AuthenticateContext.isLoggedIn && <Link className="nav-login" to="#" onClick={expandManagement} >{!(AuthenticateContext.isLoggedIn === undefined || AuthenticateContext.isLoggedIn === null || !AuthenticateContext.isLoggedIn || undefined)
 
     return <div className="Top-nav">
         <div className="nav-logo"><img src={require('../RESOURCES/logo_white.png')} alt="logo"/></div>
@@ -86,11 +95,12 @@ function Nav(props) {
             <Link className="nav-link" to="/">Our Team</Link>
             <Link className="nav-link" to="/">For Owners</Link>
             <Link className="nav-link" to="/">About Us</Link>
-            {AuthenticateContext.isLoggedIn && <Link className="nav-login" to="#" onClick={expandManagement} >{!(AuthenticateContext.isLoggedIn === undefined || AuthenticateContext.isLoggedIn === null || !AuthenticateContext.isLoggedIn || undefined) && JSON.parse(AuthenticateContext.user)[0].email}</Link> }
-            {(AuthenticateContext.isLoggedIn === undefined || AuthenticateContext.isLoggedIn === null || !AuthenticateContext.isLoggedIn || undefined) && <Link className="nav-login" to="/authentication/login">Login</Link>}
+            
+            {(data!==null || data) && <Link className="nav-login" to="#" onClick={expandManagement}> {JSON.parse(data)[0].email}</Link> }
+            {(data===null || !data) && <Link className="nav-login" to="/authentication/login">Login</Link>}
         </div>
         <div hidden={!pageMgt.topNavProfileExpand} className="admin-nav-menu">
-            <div className="admin-nav-menu-item"><Link className="admin-nav-menu-item-link" to={!(AuthenticateContext.isLoggedIn === undefined || AuthenticateContext.isLoggedIn === null || !AuthenticateContext.isLoggedIn || undefined) && "/user-profile/"+JSON.parse(AuthenticateContext.user)[0].email} onClick={contractManagement}>Manage Profile</Link></div>
+            <div className="admin-nav-menu-item"><Link className="admin-nav-menu-item-link" to={data!==null && "/user-profile/"+JSON.parse(data)[0].email} onClick={contractManagement}>Manage Profile</Link></div>
             <div className="admin-nav-menu-item"><Link className="admin-nav-menu-item-link" to="#" onClick={logout}>Log Out</Link></div>
         </div>
     </div>
@@ -98,3 +108,8 @@ function Nav(props) {
 
 
 export default Nav;
+
+export const navLoader= async ()=>{
+    const data = await localStorage.getItem("AuthUser");
+    return data;
+}
